@@ -1,4 +1,4 @@
-import { Activity, Users, Eye, ArrowUpRight } from 'lucide-react';
+import { Activity, Users, Eye, ArrowUpRight, Shield } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
 
 export default function AdminDashboard() {
