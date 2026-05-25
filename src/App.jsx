@@ -187,7 +187,6 @@ export default function App() {
                 <li>How I utilize data analytics principles to improve network defense mechanisms.</li>
                 <li>My roadmap for transitioning into SOC Analyst roles within Metro Manila's tech hubs.</li>
                 <li>My approach to Object-Oriented Programming and building Java standalone apps.</li>
-                <li>Strategies for grinding to Mythic rank in Mobile Legends under 90 matches.</li>
                 <li>Hardware troubleshooting, from thermal management to testing internal components.</li>
               </ul>
               
