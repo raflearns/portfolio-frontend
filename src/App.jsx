@@ -1,6 +1,7 @@
 import { Mail } from 'lucide-react';
-// We are importing the hero image you already have in your assets folder!
-import heroImg from './assets/hero.png';
+// Import your images from the assets folder
+import profileImg from './assets/profiles/raf_profile.png';
+import laundrifyImg from './assets/projects/laundrify.png';
 
 // Custom SVG for GitHub
 const GithubIcon = ({ size = 24 }) => (
@@ -22,235 +23,179 @@ const LinkedinIcon = ({ size = 24 }) => (
 export default function App() {
   return (
     <div className="bg-[#050810] min-h-screen text-slate-400 font-sans selection:bg-cyan-500/30">
-      <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-0">
-        <div className="lg:flex lg:justify-between lg:gap-4">
+      
+      {/* Sticky Top Navigation for Single Column Layout */}
+      <nav className="sticky top-0 z-50 bg-[#050810]/90 backdrop-blur-md border-b border-slate-800/50 w-full">
+        <div className="mx-auto max-w-3xl px-6 py-4 flex justify-center gap-6 sm:gap-10 text-sm font-bold uppercase tracking-widest text-slate-500">
+          <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
+          <a href="#skills" className="hover:text-cyan-400 transition-colors">Skills</a>
+          <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
+          <a href="#ama" className="hover:text-cyan-400 transition-colors">AMA</a>
+        </div>
+      </nav>
+
+      {/* Main Single Column Container - max-w-3xl keeps text readable */}
+      <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
+        
+        {/* CENTERED HERO SECTION */}
+        <header className="flex flex-col items-center text-center mb-24">
+          <img 
+            src={profileImg} 
+            alt="Rafael Jr. Canalda" 
+            className="h-40 w-40 rounded-full border-4 border-cyan-400/70 object-cover shadow-lg shadow-cyan-500/20 mb-6"
+          />
           
-          {/* LEFT COLUMN: Sticky Header */}
-          <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24">
-            <div>
-              
-              {/* Profile Image with 50% border radius (rounded-full) matching the theme color */}
-              <div className="mb-6">
-                <img 
-                  src={heroImg} 
-                  alt="Rafael Jr. Canalda" 
-                  className="h-32 w-32 rounded-full border-4 border-cyan-400/70 object-cover shadow-lg shadow-cyan-500/20"
-                />
-              </div>
+          <h1 className="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
+            Rafael Jr. Canalda
+          </h1>
+          <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">
+            Aspiring SOC Analyst & Network System Administrator
+          </h2>
+          
+          <p className="mt-6 max-w-lg leading-normal text-base">
+            I build secure applications and leverage data analytics to defend and monitor network infrastructures.
+          </p>
 
-              <h1 className="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
-                Rafael Jr. Canalda
-              </h1>
-              <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">
-                Aspiring SOC Analyst & Network System Administrator
-              </h2>
-              
-              {/* Working Social Links */}
-              <ul className="mt-6 flex items-center gap-5">
-                <li>
-                  <a href="https://github.com/raflearns" target="_blank" rel="noreferrer" className="block text-slate-400 hover:text-cyan-400 transition-colors">
-                    <span className="sr-only">GitHub</span>
-                    <GithubIcon size={26} />
-                  </a>
-                </li>
-                <li>
-                  {/* Replace this URL with your actual LinkedIn profile link */}
-                  <a href="https://www.linkedin.com/in/raf-jrrc/" target="_blank" rel="noreferrer" className="block text-slate-400 hover:text-cyan-400 transition-colors">
-                    <span className="sr-only">LinkedIn</span>
-                    <LinkedinIcon size={26} />
-                  </a>
-                </li>
-                <li>
-                  {/* Replace this with your actual preferred email */}
-                  <a href="mailto:rafael.canaldajr@gmail.com" className="block text-slate-400 hover:text-cyan-400 transition-colors">
-                    <span className="sr-only">Email</span>
-                    <Mail size={26} />
-                  </a>
-                </li>
-              </ul>
+          {/* Centered Social Links */}
+          <ul className="mt-8 flex items-center justify-center gap-6">
+            <li>
+              <a href="https://github.com/raflearns" target="_blank" rel="noreferrer" className="block text-slate-400 hover:text-cyan-400 transition-colors">
+                <span className="sr-only">GitHub</span>
+                <GithubIcon size={28} />
+              </a>
+            </li>
+            <li>
+              <a href="https://linkedin.com/in/rafaelcanalda" target="_blank" rel="noreferrer" className="block text-slate-400 hover:text-cyan-400 transition-colors">
+                <span className="sr-only">LinkedIn</span>
+                <LinkedinIcon size={28} />
+              </a>
+            </li>
+            <li>
+              <a href="mailto:rafael.canalda@example.com" className="block text-slate-400 hover:text-cyan-400 transition-colors">
+                <span className="sr-only">Email</span>
+                <Mail size={28} />
+              </a>
+            </li>
+          </ul>
+        </header>
 
-              <p className="mt-6 max-w-xs leading-normal">
-                I build secure applications and leverage data analytics to defend and monitor network infrastructures.
+        <main className="space-y-24">
+          
+          {/* ABOUT SECTION */}
+          <section id="about" className="scroll-mt-24">
+            <h2 className="text-2xl font-bold text-slate-200 mb-6">About Me</h2>
+            <div className="space-y-4 text-base">
+              <p>
+                Currently pursuing my Bachelor of Science in Information Technology at the University of Makati, I specialize in Information Network System Administration. My focus is on the intersection of software architecture and cybersecurity, aiming for a career as a SOC Analyst.
               </p>
-
-              {/* Navigation */}
-              <nav className="nav hidden lg:block mt-16">
-                <ul className="w-max">
-                  <li>
-                    <a className="group flex items-center py-3 hover:text-cyan-400 transition-colors" href="#about">
-                      <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-cyan-400"></span>
-                      <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">About</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="group flex items-center py-3 hover:text-cyan-400 transition-colors" href="#skills">
-                      <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-cyan-400"></span>
-                      <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">Tech Stack</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="group flex items-center py-3 hover:text-cyan-400 transition-colors" href="#projects">
-                      <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-cyan-400"></span>
-                      <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">Projects</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a className="group flex items-center py-3 hover:text-cyan-400 transition-colors" href="#ama">
-                      <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-cyan-400"></span>
-                      <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">Ask Me Anything</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              <p>
+                I combine a strong foundation in Object-Oriented Programming with two years of hands-on data analytics experience. This unique blend allows me to not just build systems, but to analyze network traffic patterns, identify vulnerabilities, and proactively defend against threats. 
+              </p>
+              <p>
+                Whether I'm setting up local BPO-style network topologies, testing internal computer components with a multimeter, or developing point-of-sale systems, I approach every technical challenge with a security-first mindset.
+              </p>
             </div>
-          </header>
+          </section>
 
-          {/* RIGHT COLUMN: Scrolling Content */}
-          <main className="pt-24 lg:w-1/2 lg:py-24">
+          {/* SKILLS & TECH STACK SECTION */}
+          <section id="skills" className="scroll-mt-24">
+            <h2 className="text-2xl font-bold text-slate-200 mb-6">Current Tech Stack</h2>
+            <div className="flex flex-wrap gap-3">
+              {[
+                'HTML', 'CSS', 'Java', 'PHP', 'MySQL', 'Python', 
+                'Excel', 'MS Office 360', 'Google Services / Docs'
+              ].map((skill) => (
+                <span key={skill} className="flex items-center rounded-full bg-cyan-400/10 border border-cyan-400/20 px-4 py-2 text-sm font-medium text-cyan-400 hover:bg-cyan-400/20 transition-colors">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          {/* PROJECTS SECTION */}
+          <section id="projects" className="scroll-mt-24">
+            <h2 className="text-2xl font-bold text-slate-200 mb-8">Projects</h2>
             
-            {/* ABOUT SECTION */}
-            <section id="about" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[#050810]/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">About</h2>
-              </div>
-              <div>
-                <p className="mb-4">
-                  Currently pursuing my Bachelor of Science in Information Technology at the University of Makati, I specialize in Information Network System Administration. My focus is on the intersection of software architecture and cybersecurity, aiming for a career as a SOC Analyst.
-                </p>
-                <p className="mb-4">
-                  I combine a strong foundation in Object-Oriented Programming with two years of hands-on data analytics experience. This unique blend allows me to not just build systems, but to analyze network traffic patterns, identify vulnerabilities, and proactively defend against threats. 
-                </p>
-                <p>
-                  Whether I'm setting up local BPO-style network topologies, testing internal computer components with a multimeter, or developing point-of-sale systems, I approach every technical challenge with a security-first mindset.
-                </p>
-              </div>
-            </section>
-
-            {/* SKILLS & TECH STACK SECTION */}
-            <section id="skills" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[#050810]/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Tech Stack</h2>
-              </div>
+            <ul className="space-y-16">
               
-              <h3 className="text-xl font-bold text-slate-200 mb-6 hidden lg:block">Current Tech Stack</h3>
-              
-              <div className="flex flex-wrap gap-3">
-                {[
-                  'HTML', 'CSS', 'Java', 'PHP', 'MySQL', 'Python', 
-                  'Excel', 'MS Office 360', 'Canva'
-                ].map((skill) => (
-                  <span key={skill} className="flex items-center rounded-full bg-cyan-400/10 border border-cyan-400/20 px-4 py-2 text-sm font-medium text-cyan-400 hover:bg-cyan-400/20 transition-colors">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </section>
-
-            {/* PROJECTS SECTION */}
-            <section id="projects" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[#050810]/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Projects</h2>
-              </div>
-              
-              <ul className="group/list">
-                
-                {/* Project 1: Predictive Modeling */}
-                <li className="mb-12">
-                  <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
-                    <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:hover:bg-slate-800/50 lg:hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:hover:drop-shadow-lg"></div>
-                    
-                    {/* Project Image Holder */}
-                    <div className="z-10 sm:order-1 sm:col-span-2 mt-1">
-                      <div className="aspect-video w-full rounded border-2 border-slate-700/50 bg-slate-800/50 flex items-center justify-center overflow-hidden transition-colors group-hover:border-cyan-400/50">
-                        {/* Replace this div with an actual <img src="..." /> tag when you have a screenshot */}
-                        <span className="text-xs font-semibold text-slate-500">IMAGE</span>
-                      </div>
-                    </div>
-
-                    <div className="z-10 sm:order-2 sm:col-span-6">
-                      <h3 className="font-medium leading-snug text-slate-200">
-                        <div>
-                          <a className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-cyan-400 focus-visible:text-cyan-400 group/link text-base" href="#">
-                            <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                            <span>Predictive Modeling</span>
-                          </a>
-                        </div>
-                      </h3>
-                      <p className="mt-2 text-sm leading-normal">
-                        Designed statistical models relying on two years of data analytics principles to forecast trends and process data sets. Specifically structured the logic to prioritize rules for discrete data sets rather than defaulting to interpolation, ensuring much higher accuracy in the resulting metrics.
-                      </p>
-                      <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">
-                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">Python</div></li>
-                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">Excel</div></li>
-                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">MySQL</div></li>
-                      </ul>
-                    </div>
+              {/* Project 1: Predictive Modeling */}
+              <li className="group relative grid gap-4 pb-1 transition-all sm:grid-cols-8 sm:gap-8 lg:hover:!opacity-100">
+                <div className="z-10 sm:col-span-3">
+                  <div className="aspect-video w-full rounded-lg border-2 border-slate-700/50 bg-slate-800/50 flex items-center justify-center overflow-hidden transition-colors group-hover:border-cyan-400/50">
+                    <span className="text-xs font-semibold text-slate-500">PREDICTIVE MODEL (NO IMAGE YET)</span>
                   </div>
-                </li>
+                </div>
 
-                {/* Project 2: Laundrify */}
-                <li className="mb-12">
-                  <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
-                    <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:hover:bg-slate-800/50 lg:hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:hover:drop-shadow-lg"></div>
-                    
-                    {/* Project Image Holder */}
-                    <div className="z-10 sm:order-1 sm:col-span-2 mt-1">
-                      <div className="aspect-video w-full rounded border-2 border-slate-700/50 bg-slate-800/50 flex items-center justify-center overflow-hidden transition-colors group-hover:border-cyan-400/50">
-                        <span className="text-xs font-semibold text-slate-500">IMAGE</span>
-                      </div>
-                    </div>
+                <div className="z-10 sm:col-span-5">
+                  <h3 className="font-bold text-xl leading-snug text-slate-200 hover:text-cyan-400 transition-colors mb-2">
+                    Predictive Modeling
+                  </h3>
+                  <p className="text-sm leading-relaxed">
+                    Designed statistical models relying on two years of data analytics principles to forecast trends and process data sets. Specifically structured the logic to prioritize rules for discrete data sets rather than defaulting to interpolation, ensuring much higher accuracy in the resulting metrics.
+                  </p>
+                  <ul className="mt-4 flex flex-wrap gap-2" aria-label="Technologies used">
+                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">Python</div></li>
+                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">Excel</div></li>
+                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">MySQL</div></li>
+                  </ul>
+                </div>
+              </li>
 
-                    <div className="z-10 sm:order-2 sm:col-span-6">
-                      <h3 className="font-medium leading-snug text-slate-200">
-                        <div>
-                          <a className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-cyan-400 focus-visible:text-cyan-400 group/link text-base" href="#">
-                            <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                            <span>Laundrify POS System</span>
-                          </a>
-                        </div>
-                      </h3>
-                      <p className="mt-2 text-sm leading-normal">
-                        A specialized, standalone Point of Sale system developed for local laundry businesses. Built with a focus on safe, reliable transaction processing and local data management.
-                      </p>
-                      <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">
-                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">Java</div></li>
-                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">OOP</div></li>
-                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">MySQL</div></li>
-                      </ul>
-                    </div>
+              {/* Project 2: Laundrify */}
+              <li className="group relative grid gap-4 pb-1 transition-all sm:grid-cols-8 sm:gap-8 lg:hover:!opacity-100">
+                <div className="z-10 sm:col-span-3">
+                  <div className="aspect-video w-full rounded-lg border-2 border-slate-700/50 bg-slate-800/50 flex items-center justify-center overflow-hidden transition-colors group-hover:border-cyan-400/50">
+                    {/* Integrated Laundrify Image */}
+                    <img 
+                      src={laundrifyImg} 
+                      alt="Laundrify POS Interface" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                </li>
+                </div>
 
+                <div className="z-10 sm:col-span-5">
+                  <h3 className="font-bold text-xl leading-snug text-slate-200 hover:text-cyan-400 transition-colors mb-2">
+                    Laundrify POS System
+                  </h3>
+                  <p className="text-sm leading-relaxed">
+                    A specialized, standalone Point of Sale system developed for local laundry businesses. Built with a focus on safe, reliable transaction processing and local data management.
+                  </p>
+                  <ul className="mt-4 flex flex-wrap gap-2" aria-label="Technologies used">
+                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">Java</div></li>
+                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">OOP</div></li>
+                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">MySQL</div></li>
+                  </ul>
+                </div>
+              </li>
+
+            </ul>
+          </section>
+
+          {/* ASK ME ANYTHING SECTION */}
+          <section id="ama" className="scroll-mt-24">
+            <div className="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 text-center sm:text-left">
+              <h3 className="text-2xl font-bold text-slate-200 mb-4">Let's start a conversation.</h3>
+              <p className="mb-6">
+                I'm always open to discussing tech, cybersecurity, or career paths. Here are a few things you can ask me about:
+              </p>
+              <ul className="list-disc list-inside space-y-3 text-sm text-slate-300 mb-8 marker:text-cyan-400 text-left">
+                <li>How I utilize data analytics principles to improve network defense mechanisms.</li>
+                <li>My roadmap for transitioning into SOC Analyst roles within Metro Manila's tech hubs.</li>
+                <li>My approach to Object-Oriented Programming and building Java standalone apps.</li>
+                <li>Strategies for grinding to Mythic rank in Mobile Legends under 90 matches.</li>
+                <li>Hardware troubleshooting, from thermal management to testing internal components.</li>
               </ul>
-            </section>
-
-            {/* ASK ME ANYTHING SECTION */}
-            <section id="ama" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[#050810]/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
-                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Ask Me Anything</h2>
-              </div>
               
-              <div className="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-slate-200 mb-4">Let's start a conversation.</h3>
-                <p className="mb-6">
-                  I'm always open to discussing tech, cybersecurity, or career paths. Here are a few things you can ask me about:
-                </p>
-                <ul className="list-disc list-inside space-y-3 text-sm text-slate-300 mb-8 marker:text-cyan-400">
-                  <li>How I utilize data analytics principles to improve network defense mechanisms.</li>
-                  <li>My roadmap for transitioning into SOC Analyst roles within Metro Manila's tech hubs.</li>
-                  <li>My approach to Object-Oriented Programming and building Java standalone apps.</li>
-                  <li>Strategies for grinding to Mythic rank in Mobile Legends under 90 matches.</li>
-                  <li>Hardware troubleshooting, from thermal management to testing internal components.</li>
-                </ul>
-                
-                <a href="mailto:rafael.canalda@example.com" className="inline-flex items-center px-6 py-3 rounded-lg bg-cyan-500 text-[#050810] font-bold hover:bg-cyan-400 transition-colors">
+              <div className="text-center sm:text-left">
+                <a href="mailto:rafael.canalda@example.com" className="inline-flex items-center px-8 py-3 rounded-lg bg-cyan-500 text-[#050810] font-bold hover:bg-cyan-400 transition-colors shadow-lg shadow-cyan-500/25">
                   Send me a question
                 </a>
               </div>
-            </section>
+            </div>
+          </section>
 
-          </main>
-        </div>
+        </main>
       </div>
     </div>
   );
