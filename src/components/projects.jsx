@@ -52,7 +52,7 @@ export default function Projects() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </div>    
     </section>
   );
 }
