@@ -1,7 +1,7 @@
 import { Mail } from 'lucide-react';
-// Import your images from the assets folder
-import profileImg from './assets/profiles/raf_profile.png';
-import laundrifyImg from './assets/projects/laundrify.png';
+// Corrected paths pointing to the images directory
+import profileImg from './assets/images/profiles/raf_profile.png';
+import laundrifyImg from './assets/images/projects/laundrify.png';
 
 // Custom SVG for GitHub
 const GithubIcon = ({ size = 24 }) => (
@@ -34,7 +34,7 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Main Single Column Container - max-w-3xl keeps text readable */}
+      {/* Main Single Column Container */}
       <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
         
         {/* CENTERED HERO SECTION */}
