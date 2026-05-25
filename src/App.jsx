@@ -1,32 +1,181 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Hero from './components/Hero';
-import Projects from './components/Projects';
-import AdminDashboard from './pages/AdminDashboard';
+import { Github, Linkedin, Mail } from 'lucide-react';
+import ImageContainer from './components/common/ImageContainer';
 
-// A simple layout for your public pages
-const PublicLayout = ({ children }) => (
-  <div className="bg-[#050810] min-h-screen text-white font-sans selection:bg-cyan-500/30">
-    {children}
-  </div>
-);
-
-function App() {
+export default function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Public Portfolio Route */}
-        <Route path="/" element={
-          <PublicLayout>
-            <Hero />
-            <Projects />
-          </PublicLayout>
-        } />
+    <div className="bg-[#050810] min-h-screen text-slate-400 font-sans selection:bg-cyan-500/30">
+      <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-0">
+        <div className="lg:flex lg:justify-between lg:gap-4">
+          
+          {/* LEFT COLUMN: Sticky Header */}
+          <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-1/2 lg:flex-col lg:justify-between lg:py-24">
+            <div>
+              <h1 className="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
+                Rafael Jr. Canalda
+              </h1>
+              <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">
+                Aspiring SOC Analyst & Network System Administrator
+              </h2>
+              
+              {/* Social Links directly below the title */}
+              <ul className="mt-6 flex items-center gap-5">
+                <li>
+                  <a href="#" className="block hover:text-cyan-400 transition-colors">
+                    <span className="sr-only">GitHub</span>
+                    <Github size={24} />
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="block hover:text-cyan-400 transition-colors">
+                    <span className="sr-only">LinkedIn</span>
+                    <Linkedin size={24} />
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:your.email@example.com" className="block hover:text-cyan-400 transition-colors">
+                    <span className="sr-only">Email</span>
+                    <Mail size={24} />
+                  </a>
+                </li>
+              </ul>
 
-        {/* Secure Admin Route */}
-        <Route path="/admin" element={<AdminDashboard />} />
-      </Routes>
-    </Router>
+              <p className="mt-6 max-w-xs leading-normal">
+                I build secure Java applications and leverage data analytics to defend and monitor network infrastructures.
+              </p>
+
+              {/* Navigation */}
+              <nav className="nav hidden lg:block mt-16">
+                <ul className="w-max">
+                  <li>
+                    <a className="group flex items-center py-3 hover:text-cyan-400 transition-colors" href="#about">
+                      <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-cyan-400"></span>
+                      <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">About</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="group flex items-center py-3 hover:text-cyan-400 transition-colors" href="#projects">
+                      <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-cyan-400"></span>
+                      <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">Projects</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="group flex items-center py-3 hover:text-cyan-400 transition-colors" href="#ama">
+                      <span className="nav-indicator mr-4 h-px w-8 bg-slate-600 transition-all group-hover:w-16 group-hover:bg-cyan-400"></span>
+                      <span className="nav-text text-xs font-bold uppercase tracking-widest text-slate-500 group-hover:text-slate-200">Ask Me Anything</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </header>
+
+          {/* RIGHT COLUMN: Scrolling Content */}
+          <main className="pt-24 lg:w-1/2 lg:py-24">
+            
+            {/* ABOUT SECTION */}
+            <section id="about" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
+              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[#050810]/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">About</h2>
+              </div>
+              <div>
+                <p className="mb-4">
+                  Currently pursuing my Bachelor of Science in Information Technology at the University of Makati, I specialize in Information Network System Administration. My focus is on the intersection of software architecture and cybersecurity, aiming for a career as a SOC Analyst.
+                </p>
+                <p className="mb-4">
+                  I combine a strong foundation in Object-Oriented Programming—frequently building standalone GUI applications in Java—with two years of hands-on data analytics experience. This unique blend allows me to not just build systems, but to analyze network traffic patterns, identify vulnerabilities, and proactively defend against threats. 
+                </p>
+                <p>
+                  Whether I'm setting up local BPO-style network topologies, testing internal computer components with a multimeter, or developing point-of-sale systems, I approach every technical challenge with a security-first mindset.
+                </p>
+              </div>
+            </section>
+
+            {/* PROJECTS SECTION */}
+            <section id="projects" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
+              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[#050810]/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Projects</h2>
+              </div>
+              
+              <ul className="group/list">
+                {/* Project 1 */}
+                <li className="mb-12">
+                  <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
+                    <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:hover:bg-slate-800/50 lg:hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:hover:drop-shadow-lg"></div>
+                    <div className="z-10 sm:order-2 sm:col-span-6">
+                      <h3 className="font-medium leading-snug text-slate-200">
+                        <div>
+                          <a className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-cyan-400 focus-visible:text-cyan-400 group/link text-base" href="#">
+                            <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                            <span>Laundrify POS System</span>
+                          </a>
+                        </div>
+                      </h3>
+                      <p className="mt-2 text-sm leading-normal">
+                        A specialized, standalone Point of Sale system developed for local laundry businesses. Built with a focus on safe, reliable transaction processing and local data management.
+                      </p>
+                      <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">
+                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">Java</div></li>
+                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">OOP</div></li>
+                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">GUI</div></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+
+                {/* Project 2 */}
+                <li className="mb-12">
+                  <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
+                    <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:hover:bg-slate-800/50 lg:hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:hover:drop-shadow-lg"></div>
+                    <div className="z-10 sm:order-2 sm:col-span-6">
+                      <h3 className="font-medium leading-snug text-slate-200">
+                        <div>
+                          <a className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-cyan-400 focus-visible:text-cyan-400 group/link text-base" href="#">
+                            <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                            <span>Network Security Data Analytics</span>
+                          </a>
+                        </div>
+                      </h3>
+                      <p className="mt-2 text-sm leading-normal">
+                        Analyzed datasets over a two-year period to identify traffic patterns and anomalies. Visualized data to support network defense strategies and proactive threat hunting.
+                      </p>
+                      <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">
+                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">Data Analytics</div></li>
+                        <li className="mr-1.5 mt-2"><div className="flex items-center rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium leading-5 text-cyan-400">Threat Modeling</div></li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            {/* ASK ME ANYTHING SECTION */}
+            <section id="ama" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
+              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-[#050810]/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+                <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Ask Me Anything</h2>
+              </div>
+              
+              <div className="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8">
+                <h3 className="text-2xl font-bold text-slate-200 mb-4">Let's start a conversation.</h3>
+                <p className="mb-6">
+                  I'm always open to discussing tech, cybersecurity, or career paths. Here are a few things you can ask me about:
+                </p>
+                <ul className="list-disc list-inside space-y-3 text-sm text-slate-300 mb-8 marker:text-cyan-400">
+                  <li>How I utilize data analytics principles to improve network defense mechanisms.</li>
+                  <li>My roadmap for transitioning into SOC Analyst roles within Metro Manila's tech hubs.</li>
+                  <li>My approach to Object-Oriented Programming and building Java standalone apps.</li>
+                  <li>Strategies for grinding to Mythic rank in Mobile Legends under 90 matches.</li>
+                  <li>Hardware troubleshooting, from thermal management to testing internal components.</li>
+                </ul>
+                
+                <a href="mailto:your.email@example.com" className="inline-flex items-center px-6 py-3 rounded-lg bg-cyan-500 text-[#050810] font-bold hover:bg-cyan-400 transition-colors">
+                  Send me a question
+                </a>
+              </div>
+            </section>
+
+          </main>
+        </div>
+      </div>
+    </div>
   );
 }
-
-export default App;
