@@ -3,6 +3,109 @@
 @tailwind utilities;
 
 :root {
-  background-color: #050810;
-  color: white;
+  --ink: #0d1726;
+  --raised: #132137;
+  --line: #20324b;
+  --line-strong: #34506f;
+  --paper: #e6ecf3;
+  --fog: #93a4bb;
+  --steel: #7db8e0;
+  --amber: #f0b13f;
+
+  --font-display: 'Archivo Variable', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  color-scheme: dark;
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--fog);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(240, 177, 63, 0.35);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Display type: Archivo at its widest setting reads like equipment labelling */
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 125;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 118;
+  font-weight: 750;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  line-height: 1.1;
+  color: var(--paper);
+}
+
+.link {
+  color: var(--steel);
+  text-decoration: underline;
+  text-decoration-color: rgba(125, 184, 224, 0.4);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease, color 150ms ease;
+}
+.link:hover {
+  color: var(--paper);
+  text-decoration-color: var(--paper);
+}
+
+/* Topology diagram text */
+.topo-label {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 100;
+  font-weight: 700;
+  font-size: 16px;
+  fill: var(--paper);
+}
+.topo-detail {
+  font-family: var(--font-body);
+  font-size: 13px;
+  fill: var(--fog);
+}
+.topo-port {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--fog);
+}
+.topo-node {
+  cursor: pointer;
+  outline: none;
+}
+.topo-node:hover rect,
+.topo-node:focus-visible rect {
+  fill: #1a2c47;
+  stroke: var(--amber);
 }
