@@ -1,16 +1,33 @@
-# React + Vite
+# Rafael Jr. Canalda — cybersecurity portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio built with React, Vite and Tailwind CSS, deployed on Vercel. The page reads like a case file,
+with sections following the phases of a penetration test and ending with the resume.
 
-Currently, two official plugins are available:
+## Updating content
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Everything on the site (about text, skills, competitions, certifications, events, projects, contact links) lives in
+`src/data/profile.js`. Add a new CTF result or certificate there and drop its image in `src/assets/images/`.
 
-## React Compiler
+Each skill in the skills table lists where it was proven: `verified` for a certificate, `applied` for a
+competition, project or job.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Resume
 
-## Expanding the ESLint configuration
+The resume source is `resume/resume.html`. After editing it, regenerate the PDF the site links to:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+google-chrome --headless --no-pdf-header-footer --print-to-pdf=public/Rafael-Canalda-Resume.pdf "file://$PWD/resume/resume.html"
+```
+
+Then update the preview image in `src/assets/images/resume-preview.webp` if the first page changed noticeably.
+
+The public resume deliberately leaves out the phone number, since anything in `public/` can be downloaded by anyone.
+
+## Running locally
+
+```bash
+npm install
+npm run dev
+```
+
+`npm run build` creates the production build in `dist/`.

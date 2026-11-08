@@ -2,7 +2,152 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Design: a declassified case file. Cool paper, ink, and one red-team red.
+  Sections follow the phases of a penetration test, ending in the report (the resume).
+*/
 :root {
-  background-color: #050810;
-  color: white;
+  --paper: #e8ebef;
+  --sheet: #f6f7f9;
+  --ink: #121418;
+  --graphite: #474d57;
+  --rule: #c5cbd4;
+  --red: #d3261c;
+  --red-deep: #a81c14;
+  --night-text: #e8ebef;
+  --night-muted: #9aa3b0;
+  --night-rule: #2a2f37;
+
+  --font-sans: 'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--graphite);
+  font-family: var(--font-sans);
+  font-variation-settings: 'opsz' 14;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--red);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+}
+
+/* The name: condensed, heavy, set big enough to act as the hero image */
+.name {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-variation-settings: 'opsz' 96, 'wdth' 75;
+  line-height: 0.84;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.title {
+  font-family: var(--font-sans);
+  font-weight: 750;
+  font-variation-settings: 'opsz' 72, 'wdth' 82;
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.night .title {
+  color: var(--night-text);
+}
+
+.heading {
+  font-weight: 650;
+  font-variation-settings: 'opsz' 24;
+  color: var(--ink);
+}
+
+.night .heading {
+  color: var(--night-text);
+}
+
+/* Redaction bars over the name; they wipe away once on load */
+.redact-line {
+  position: relative;
+  display: block;
+  width: fit-content;
+}
+.redact-bar {
+  position: absolute;
+  inset: 0.08em -0.04em 0.02em;
+  background: var(--ink);
+  transform-origin: right center;
+}
+
+/* Photo frame with crop marks, like a photo clipped to a file */
+.crop {
+  position: relative;
+}
+.crop::before,
+.crop::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--red);
+  border-style: solid;
+  pointer-events: none;
+}
+.crop::before {
+  top: -8px;
+  left: -8px;
+  border-width: 2px 0 0 2px;
+}
+.crop::after {
+  bottom: -8px;
+  right: -8px;
+  border-width: 0 2px 2px 0;
+}
+
+.redacted-text {
+  background: var(--ink);
+  color: transparent;
+  user-select: none;
+  border-radius: 1px;
+}
+
+.text-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
+}
+.text-link:hover {
+  color: var(--red);
 }

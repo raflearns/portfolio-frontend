@@ -1,205 +1,470 @@
-import { Mail } from 'lucide-react';
-// Corrected paths pointing to the images directory
-import profileImg from './assets/images/profiles/raf_profile.png';
-import laundrifyImg from './assets/images/projects/laundrify.png';
-import strandmatchImg from './assets/images/projects/strandmatch.png';
-// Custom SVG for GitHub
-const GithubIcon = ({ size = 24 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
+import { useCallback, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Mail, ChevronDown, FileDown, Maximize2, ExternalLink } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from './components/BrandIcons';
+import Lightbox from './components/Lightbox';
+import profileImg from './assets/images/profiles/raf_profile.webp';
+import resumePreview from './assets/images/resume-preview.webp';
+import { person, about, competitions, certifications, events, skills, projects } from './data/profile';
 
-// Custom SVG for LinkedIn
-const LinkedinIcon = ({ size = 24 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect x="2" y="9" width="4" height="12" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
+const navLinks = [
+  { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#competitions', label: 'Competitions' },
+  { href: '#credentials', label: 'Credentials' },
+  { href: '#projects', label: 'Projects' },
+];
+
+const wrap = 'mx-auto w-full max-w-[86rem] px-5 sm:px-8 lg:px-12';
+
+/* ---------- Small building blocks ---------- */
+
+function RedactLine({ children, delay }) {
+  const reduce = useReducedMotion();
+  return (
+    <span className="redact-line">
+      {children}
+      {!reduce && (
+        <motion.span
+          className="redact-bar"
+          aria-hidden="true"
+          initial={{ scaleX: 1 }}
+          animate={{ scaleX: 0 }}
+          transition={{ duration: 0.7, delay, ease: [0.7, 0, 0.2, 1] }}
+        />
+      )}
+    </span>
+  );
+}
+
+function Btn({ href, children, tone = 'red', ...rest }) {
+  const tones = {
+    red: 'bg-[var(--red)] text-white hover:bg-[var(--red-deep)]',
+    ink: 'bg-[var(--ink)] text-white hover:bg-black',
+    line: 'border-2 border-[var(--ink)] text-[var(--ink)] hover:bg-[var(--ink)] hover:text-white',
+    white: 'border-2 border-white text-white hover:bg-white hover:text-[var(--red)]',
+  };
+  return (
+    <a
+      href={href}
+      className={`inline-flex items-center gap-2.5 px-5 py-3 font-semibold transition-colors ${tones[tone]}`}
+      {...rest}
+    >
+      {children}
+    </a>
+  );
+}
+
+function Phase({ id, n, name, title, intro, night = false, children }) {
+  return (
+    <section
+      id={id}
+      className={`scroll-mt-16 ${night ? 'night bg-[var(--ink)] text-[var(--night-muted)]' : 'border-t border-[var(--rule)]'}`}
+    >
+      <div className={`${wrap} grid gap-x-10 gap-y-8 py-20 lg:grid-cols-12 lg:py-28`}>
+        <div className="min-w-0 lg:col-span-3">
+          <p className={`mono ${night ? 'text-[var(--night-muted)]' : 'text-[var(--graphite)]'}`}>Phase {n}</p>
+          <p className={`mono ${night ? 'text-[#ff6b5e]' : 'text-[var(--red)]'}`}>{name}</p>
+        </div>
+        <div className="min-w-0 lg:col-span-9">
+          <h2 className="title max-w-[18ch]">{title}</h2>
+          {intro && <p className="mt-5 max-w-[60ch] text-lg">{intro}</p>}
+          {children}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Page ---------- */
 
 export default function App() {
+  const [viewing, setViewing] = useState(null);
+  const close = useCallback(() => setViewing(null), []);
+  const verified = skills.filter((s) => s.state === 'verified').length;
+
   return (
-    <div className="bg-[#050810] min-h-screen text-slate-400 font-sans selection:bg-cyan-500/30">
-      
-      {/* Sticky Top Navigation for Single Column Layout */}
-      <nav className="sticky top-0 z-50 bg-[#050810]/90 backdrop-blur-md border-b border-slate-800/50 w-full">
-        <div className="mx-auto max-w-3xl px-6 py-4 flex justify-center gap-6 sm:gap-10 text-sm font-bold uppercase tracking-widest text-slate-500">
-          <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
-          <a href="#skills" className="hover:text-cyan-400 transition-colors">Skills</a>
-          <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
-          <a href="#ama" className="hover:text-cyan-400 transition-colors">AMA</a>
-        </div>
-      </nav>
-
-      {/* Main Single Column Container */}
-      <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
-        
-        {/* CENTERED HERO SECTION */}
-        <header className="flex flex-col items-center text-center mb-24">
-          <img 
-            src={profileImg} 
-            alt="Rafael Jr. Canalda" 
-            className="h-40 w-40 rounded-full border-4 border-cyan-400/70 object-cover shadow-lg shadow-cyan-500/20 mb-6"
-          />
-          
-          <h1 className="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl">
-            Rafael Jr. Canalda
-          </h1>
-          <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200 sm:text-xl">
-            Aspiring SOC Analyst & Network System Administrator
-          </h2>
-          
-          <p className="mt-6 max-w-lg leading-normal text-base">
-            I build secure applications and leverage data analytics to defend and monitor network infrastructures.
-          </p>
-
-          {/* Centered Social Links */}
-          <ul className="mt-8 flex items-center justify-center gap-6">
-            <li>
-              <a href="https://github.com/raflearns" target="_blank" rel="noreferrer" className="block text-slate-400 hover:text-cyan-400 transition-colors">
-                <span className="sr-only">GitHub</span>
-                <GithubIcon size={28} />
-              </a>
-            </li>
-            <li>
-              <a href="https://linkedin.com/in/rafaelcanalda" target="_blank" rel="noreferrer" className="block text-slate-400 hover:text-cyan-400 transition-colors">
-                <span className="sr-only">LinkedIn</span>
-                <LinkedinIcon size={28} />
-              </a>
-            </li>
-            <li>
-              <a href="mailto:rafael.canalda@example.com" className="block text-slate-400 hover:text-cyan-400 transition-colors">
-                <span className="sr-only">Email</span>
-                <Mail size={28} />
-              </a>
-            </li>
-          </ul>
-        </header>
-
-        <main className="space-y-24">
-          
-          {/* ABOUT SECTION */}
-          <section id="about" className="scroll-mt-24">
-            <h2 className="text-2xl font-bold text-slate-200 mb-6">About Me</h2>
-            <div className="space-y-4 text-base">
-              <p>
-                Currently pursuing my Bachelor of Science in Information Technology at the University of Makati, I specialize in Information Network System Administration. My focus is on the intersection of software architecture and cybersecurity, aiming for a career as a SOC Analyst.
-              </p>
-              <p>
-                I combine a strong foundation in Object-Oriented Programming with two years of hands-on data analytics experience. This unique blend allows me to not just build systems, but to analyze network traffic patterns, identify vulnerabilities, and proactively defend against threats. 
-              </p>
-              <p>
-                Whether I'm setting up local BPO-style network topologies, testing internal computer components with a multimeter, or developing point-of-sale systems, I approach every technical challenge with a security-first mindset.
-              </p>
-            </div>
-          </section>
-
-          {/* SKILLS & TECH STACK SECTION */}
-          <section id="skills" className="scroll-mt-24">
-            <h2 className="text-2xl font-bold text-slate-200 mb-6">Current Tech Stack</h2>
-            <div className="flex flex-wrap gap-3">
-              {[
-                'HTML', 'CSS', 'Java', 'PHP', 'MySQL', 'Python', 
-                'Excel', 'MS Office 360', 'Google Services / Docs'
-              ].map((skill) => (
-                <span key={skill} className="flex items-center rounded-full bg-cyan-400/10 border border-cyan-400/20 px-4 py-2 text-sm font-medium text-cyan-400 hover:bg-cyan-400/20 transition-colors">
-                  {skill}
-                </span>
+    <div className="min-h-screen">
+      {/* Navigation */}
+      <header className="sticky top-0 z-50 border-b border-[var(--rule)] bg-[rgba(232,235,239,0.92)] backdrop-blur">
+        <nav className={`${wrap} flex h-16 items-center justify-between gap-6`}>
+          <a href="#top" className="heading text-lg tracking-tight">
+            Rafael Canalda
+          </a>
+          <div className="flex items-center gap-7">
+            <ul className="hidden gap-7 text-[0.95rem] font-medium md:flex">
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="text-[var(--graphite)] hover:text-[var(--ink)] transition-colors">
+                    {l.label}
+                  </a>
+                </li>
               ))}
-            </div>
-          </section>
-
-          {/* PROJECTS SECTION */}
-          <section id="projects" className="scroll-mt-24">
-            <h2 className="text-2xl font-bold text-slate-200 mb-8">Projects</h2>
-            
-            <ul className="space-y-16">
-              
-              {/* Project 1: Predictive Modeling */}
-              <li className="group relative grid gap-4 pb-1 transition-all sm:grid-cols-8 sm:gap-8 lg:hover:!opacity-100">
-                <div className="z-10 sm:col-span-3">
-                  <div className="aspect-video w-full rounded-lg border-2 border-slate-700/50 bg-slate-800/50 flex items-center justify-center overflow-hidden transition-colors group-hover:border-cyan-400/50">
-                    <img 
-                      src={strandmatchImg} 
-                      alt="StrandMatch Landing Page" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-
-                <div className="z-10 sm:col-span-5">
-                  <h3 className="font-bold text-xl leading-snug text-slate-200 hover:text-cyan-400 transition-colors mb-2">
-                    Predictive Modeling
-                  </h3>
-                  <p className="text-sm leading-relaxed">
-                    Designed statistical models relying on two years of data analytics principles to forecast trends and process data sets. Specifically structured the logic to prioritize rules for discrete data sets rather than defaulting to interpolation, ensuring much higher accuracy in the resulting metrics.
-                  </p>
-                  <ul className="mt-4 flex flex-wrap gap-2" aria-label="Technologies used">
-                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">Python</div></li>
-                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">Excel</div></li>
-                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">MySQL</div></li>
-                  </ul>
-                </div>
-              </li>
-
-              {/* Project 2: Laundrify */}
-              <li className="group relative grid gap-4 pb-1 transition-all sm:grid-cols-8 sm:gap-8 lg:hover:!opacity-100">
-                <div className="z-10 sm:col-span-3">
-                  <div className="aspect-video w-full rounded-lg border-2 border-slate-700/50 bg-slate-800/50 flex items-center justify-center overflow-hidden transition-colors group-hover:border-cyan-400/50">
-                    {/* Integrated Laundrify Image */}
-                    <img 
-                      src={laundrifyImg} 
-                      alt="Laundrify POS Interface" 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-
-                <div className="z-10 sm:col-span-5">
-                  <h3 className="font-bold text-xl leading-snug text-slate-200 hover:text-cyan-400 transition-colors mb-2">
-                    Laundrify POS System
-                  </h3>
-                  <p className="text-sm leading-relaxed">
-                    A specialized, standalone Point of Sale system developed for local laundry businesses. Built with a focus on safe, reliable transaction processing and local data management.
-                  </p>
-                  <ul className="mt-4 flex flex-wrap gap-2" aria-label="Technologies used">
-                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">Java</div></li>
-                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">OOP</div></li>
-                    <li><div className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-400">MySQL</div></li>
-                  </ul>
-                </div>
-              </li>
-
             </ul>
-          </section>
+            <a
+              href={person.resume}
+              target="_blank"
+              rel="noreferrer"
+              className="bg-[var(--red)] px-4 py-2 text-[0.95rem] font-semibold text-white hover:bg-[var(--red-deep)] transition-colors"
+            >
+              Resume
+            </a>
+          </div>
+        </nav>
+      </header>
 
-          {/* ASK ME ANYTHING SECTION */}
-          <section id="ama" className="scroll-mt-24">
-            <div className="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8 text-center sm:text-left">
-              <h3 className="text-2xl font-bold text-slate-200 mb-4">Let's start a conversation.</h3>
-              <p className="mb-6">
-                I'm always open to discussing tech, cybersecurity, or career paths. Here are a few things you can ask me about:
-              </p>
-              <ul className="list-disc list-inside space-y-3 text-sm text-slate-300 mb-8 marker:text-cyan-400 text-left">
-                <li>How I utilize data analytics principles to improve network defense mechanisms.</li>
-                <li>My roadmap for transitioning into SOC Analyst roles within Metro Manila's tech hubs.</li>
-                <li>My approach to Object-Oriented Programming and building Java standalone apps.</li>
-                <li>Hardware troubleshooting, from thermal management to testing internal components.</li>
-              </ul>
-              
-              <div className="text-center sm:text-left">
-                <a href="mailto:rafael.canalda@example.com" className="inline-flex items-center px-8 py-3 rounded-lg bg-cyan-500 text-[#050810] font-bold hover:bg-cyan-400 transition-colors shadow-lg shadow-cyan-500/25">
-                  Send me a question
-                </a>
+      <main id="top">
+        {/* Hero: the case file cover */}
+        <section className={`${wrap} pt-8 pb-20 lg:pb-28`}>
+          <div className="mono flex flex-wrap justify-between gap-2 border-b border-[var(--rule)] pb-3 text-[var(--graphite)]">
+            <span>Case file {person.initials}-2026</span>
+            <span>
+              Status: <span className="text-[var(--red)]">open to internships</span>
+            </span>
+          </div>
+
+          <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:items-end">
+            <h1 className="name text-[24vw] lg:col-span-7 lg:text-[clamp(4.6rem,17vw,15.5rem)]" aria-label={person.name}>
+              <RedactLine delay={0.2}>Rafael Jr.</RedactLine>
+              <RedactLine delay={0.42}>Canalda</RedactLine>
+            </h1>
+            {/* Subject card */}
+            <div className="lg:col-span-5 lg:pb-3">
+              <div className="flex gap-6 border-2 border-[var(--ink)] bg-[var(--sheet)] p-5 sm:gap-7 sm:p-6">
+                <div className="crop shrink-0">
+                  <img
+                    src={profileImg}
+                    alt={`Portrait of ${person.name}`}
+                    className="h-36 w-28 object-cover grayscale contrast-[1.1] transition-[filter] duration-300 hover:grayscale-0 sm:h-44 sm:w-36"
+                  />
+                </div>
+                <dl className="mono grid content-start gap-y-2.5 text-[var(--ink)]">
+                  {[
+                    ['Subject', person.fullName],
+                    ['Based in', person.location],
+                    ['Best result', '1st runner-up, INFOTECH ’26'],
+                    ['Credentials', `${certifications.length} Cisco NetAcad`],
+                  ].map(([k, v]) => (
+                    <div key={k}>
+                      <dt className="text-[var(--graphite)]">{k}</dt>
+                      <dd>{v}</dd>
+                    </div>
+                  ))}
+                  <div>
+                    <dt className="text-[var(--graphite)]">Phone</dt>
+                    <dd>
+                      <span className="redacted-text" aria-hidden="true">
+                        xxxx xxx xxxx
+                      </span>
+                      <span className="sr-only">Withheld. Please reach out by email.</span>
+                    </dd>
+                  </div>
+                </dl>
               </div>
             </div>
-          </section>
+          </div>
 
-        </main>
-      </div>
+          <div className="mt-12 grid lg:mt-14 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <p className="heading max-w-[24ch] text-[clamp(1.5rem,2.6vw,2.1rem)] leading-[1.15]">
+                Aspiring penetration tester and cybersecurity engineer.
+              </p>
+              <p className="mt-5 max-w-[54ch] text-lg">
+                IT student at the University of Makati, majoring in Information Network Security. I learn by breaking
+                things in capture-the-flag competitions and back it up with Cisco networking and network defense
+                training.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Btn href={person.resume} target="_blank" rel="noreferrer">
+                  <FileDown size={19} aria-hidden="true" /> View my resume
+                </Btn>
+                <Btn href={`mailto:${person.email}`} tone="line">
+                  <Mail size={19} aria-hidden="true" /> Email me
+                </Btn>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* Phase 01: About */}
+        <Phase id="about" n="01" name="Reconnaissance" title="Who I am">
+          <div className="mt-8 max-w-[62ch] space-y-5">
+            <p className="text-[1.3rem] leading-relaxed text-[var(--ink)]">{about[0]}</p>
+            {about.slice(1).map((p) => (
+              <p key={p.slice(0, 20)} className="text-lg">
+                {p}
+              </p>
+            ))}
+          </div>
+        </Phase>
+
+        {/* Phase 02: Skills */}
+        <Phase
+          id="skills"
+          n="02"
+          name="Enumeration"
+          title="What I can do"
+          intro="Every skill below points to where I proved it: a certificate I earned, or a competition, project or job where I used it."
+        >
+          <div className="mt-10 bg-[var(--ink)] p-5 text-[var(--night-text)] sm:p-7">
+            <p className="mono">
+              <span className="text-[#ff6b5e]">rafael@umak</span>
+              <span className="text-[var(--night-muted)]">:~$ </span>
+              nmap -sV --top-skills rafael-canalda
+            </p>
+            <ul className="mono mt-5 sm:hidden">
+              {skills.map((s) => (
+                <li key={s.skill} className="border-t border-[var(--night-rule)] py-2.5">
+                  <p>{s.skill}</p>
+                  <p className="text-[var(--night-muted)]">
+                    <span className={s.state === 'verified' ? 'text-[#ff6b5e]' : 'text-[var(--night-text)]'}>{s.state}</span>
+                    {' '}via {s.source}
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 hidden sm:block">
+              <table className="mono w-full border-collapse text-left">
+                <thead className="text-[var(--night-muted)]">
+                  <tr>
+                    <th className="pb-2 pr-6 font-medium">SKILL</th>
+                    <th className="pb-2 pr-6 font-medium">STATE</th>
+                    <th className="pb-2 font-medium">SOURCE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {skills.map((s) => (
+                    <tr key={s.skill} className="border-t border-[var(--night-rule)]">
+                      <td className="py-2 pr-6">{s.skill}</td>
+                      <td className={`py-2 pr-6 ${s.state === 'verified' ? 'text-[#ff6b5e]' : 'text-[var(--night-text)]'}`}>
+                        {s.state}
+                      </td>
+                      <td className="py-2 text-[var(--night-muted)]">{s.source}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mono mt-5 text-[var(--night-muted)]">
+              {skills.length} skills found. {verified} verified by certificate, {skills.length - verified} applied in
+              real work.
+            </p>
+          </div>
+        </Phase>
+
+        {/* Phase 03: Competitions */}
+        <Phase
+          id="competitions"
+          n="03"
+          name="Exploitation"
+          title="Competition record"
+          intro="Capture-the-flag competitions, where I put the theory to work against a clock."
+          night
+        >
+          <div className="mt-12 space-y-16">
+            {competitions.map((c) => (
+              <article key={c.id} className="grid gap-8 border-t border-[var(--night-rule)] pt-10 md:grid-cols-12">
+                <div className="md:col-span-5">
+                  <button
+                    type="button"
+                    onClick={() => setViewing(c.images[0])}
+                    className="group relative block w-full overflow-hidden"
+                    aria-label={`View image: ${c.images[0].alt}`}
+                  >
+                    <img src={c.images[0].src} alt="" loading="lazy" className="aspect-square w-full object-cover" />
+                    <span className="absolute right-3 bottom-3 grid h-9 w-9 place-items-center bg-[var(--red)] text-white opacity-90 group-hover:opacity-100">
+                      <Maximize2 size={16} aria-hidden="true" />
+                    </span>
+                  </button>
+                  {c.images.slice(1).map((img) => (
+                    <button
+                      key={img.alt}
+                      type="button"
+                      onClick={() => setViewing(img)}
+                      className="mono mt-3 text-[var(--night-text)] underline decoration-[var(--red)] underline-offset-4 hover:text-white"
+                    >
+                      View participation certificate
+                    </button>
+                  ))}
+                </div>
+                <div className="md:col-span-7">
+                  <p className="name text-[clamp(3.2rem,7vw,6rem)] !text-[#ff6b5e]">{c.placement}</p>
+                  <h3 className="heading mt-5 text-2xl">{c.event}</h3>
+                  <p className="mono mt-2">{c.host}</p>
+                  <p className="mono">
+                    {c.date}. Team {c.team}.
+                  </p>
+                  <p className="mt-5 max-w-[50ch] text-lg">{c.summary}</p>
+                  {c.stats.length > 0 && (
+                    <dl className="mt-8 grid max-w-md grid-cols-3 gap-4 border-t border-[var(--night-rule)] pt-6">
+                      {c.stats.map((s) => (
+                        <div key={s.label}>
+                          <dd className="name text-[2.6rem] !text-[var(--night-text)]">{s.value}</dd>
+                          <dt className="mt-1.5 text-sm">{s.label}</dt>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </Phase>
+
+        {/* Phase 04: Credentials */}
+        <Phase
+          id="credentials"
+          n="04"
+          name="Privilege escalation"
+          title="Credentials and training"
+          intro="Cisco Networking Academy courses, each with a QR code on the certificate that anyone can scan to verify."
+        >
+          <div className="mt-10 grid gap-5 sm:grid-cols-2">
+            {certifications.map((cert) => (
+              <div key={cert.id} className="flex flex-col border-t-4 border-[var(--red)] bg-[var(--sheet)] p-6">
+                <p className="mono text-[var(--graphite)]">
+                  {cert.issuer}, {cert.issued}
+                </p>
+                <h3 className="heading mt-2 text-xl">{cert.title}</h3>
+                <details className="group mt-4 [&_summary::-webkit-details-marker]:hidden">
+                  <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-[0.95rem] font-medium text-[var(--ink)] hover:text-[var(--red)]">
+                    What it covered
+                    <ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" />
+                  </summary>
+                  <ul className="mt-3 space-y-1.5 text-[0.95rem]">
+                    {cert.covered.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-[0.65em] h-[3px] w-3 shrink-0 bg-[var(--red)]" aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+                <button
+                  type="button"
+                  onClick={() => setViewing({ src: cert.image, alt: `${cert.title} certificate, ${cert.issuer}` })}
+                  className="mt-auto pt-5 text-left text-[0.95rem] font-semibold text-[var(--red)] hover:text-[var(--red-deep)]"
+                >
+                  View certificate
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <h3 className="heading mt-14 text-xl">Summits and participation</h3>
+          <ul className="mt-5 divide-y divide-[var(--rule)] border-y border-[var(--rule)]">
+            {events.map((ev) => (
+              <li key={ev.id} className="flex flex-wrap items-center gap-x-6 gap-y-2 py-5">
+                <div className="min-w-0 flex-1 basis-72">
+                  <p className="font-semibold text-[var(--ink)]">{ev.title}</p>
+                  <p className="text-[0.95rem]">{ev.detail}</p>
+                </div>
+                <p className="mono text-[var(--graphite)]">{ev.date}</p>
+                <button
+                  type="button"
+                  onClick={() => setViewing({ src: ev.image, alt: ev.imageAlt })}
+                  className="text-[0.95rem] font-semibold text-[var(--red)] hover:text-[var(--red-deep)]"
+                >
+                  View certificate
+                </button>
+              </li>
+            ))}
+          </ul>
+        </Phase>
+
+        {/* Phase 05: Projects */}
+        <Phase
+          id="projects"
+          n="05"
+          name="Persistence"
+          title="Things I’ve built"
+          intro="Software I designed and shipped, from an offline disaster app to a point-of-sale system."
+        >
+          <div className="mt-10 grid gap-x-10 gap-y-14 md:grid-cols-2">
+            {projects.map((p) => (
+              <article key={p.id} className={p.featured ? 'md:col-span-2' : ''}>
+                <div className="aspect-video overflow-hidden border-2 border-[var(--ink)] bg-[var(--sheet)]">
+                  <img src={p.image} alt={p.imageAlt} loading="lazy" className="h-full w-full object-cover" />
+                </div>
+                <div className={p.featured ? 'mt-6 grid gap-x-10 gap-y-3 lg:grid-cols-[1fr_auto] lg:items-start' : 'mt-5'}>
+                  <div>
+                    <h3 className={`heading ${p.featured ? 'text-3xl' : 'text-2xl'}`}>{p.title}</h3>
+                    <p className={`mt-2 ${p.featured ? 'max-w-[64ch] text-lg' : 'max-w-[52ch]'}`}>{p.description}</p>
+                    <p className="mono mt-3 text-[var(--red)]">{p.tech.join(' / ')}</p>
+                  </div>
+                  {p.link && (
+                    <Btn href={p.link} target="_blank" rel="noreferrer" tone="line">
+                      <ExternalLink size={18} aria-hidden="true" /> Open {p.title}
+                    </Btn>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </Phase>
+
+        {/* Phase 06: Reporting */}
+        <section id="report" className="scroll-mt-16 bg-[var(--red)] text-white">
+          <div className={`${wrap} grid items-center gap-12 py-20 lg:grid-cols-12 lg:py-28`}>
+            <div className="lg:col-span-3 lg:self-start">
+              <p className="mono text-white/75">Phase 06</p>
+              <p className="mono">Reporting</p>
+            </div>
+            <div className="lg:col-span-5">
+              <h2 className="title !text-white">The full report</h2>
+              <p className="mt-5 max-w-[42ch] text-lg text-white/90">
+                My one-page resume, with competitions, credentials, skills and education. Then let’s talk.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Btn href={person.resume} tone="ink" target="_blank" rel="noreferrer">
+                  <FileDown size={19} aria-hidden="true" /> Download resume
+                </Btn>
+                <Btn href={`mailto:${person.email}`} tone="white">
+                  <Mail size={19} aria-hidden="true" /> Email me
+                </Btn>
+              </div>
+              <ul className="mt-8 space-y-2">
+                <li>
+                  <a href={`mailto:${person.email}`} className="hover:underline underline-offset-4">
+                    {person.email}
+                  </a>
+                </li>
+                <li>
+                  <a href={person.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline underline-offset-4">
+                    <LinkedinIcon size={17} aria-hidden="true" /> linkedin.com/in/raf-jrrc
+                  </a>
+                </li>
+                <li>
+                  <a href={person.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline underline-offset-4">
+                    <GithubIcon size={17} aria-hidden="true" /> github.com/raflearns
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="lg:col-span-4">
+              <a
+                href={person.resume}
+                target="_blank"
+                rel="noreferrer"
+                className="block bg-white p-2 shadow-[12px_12px_0_var(--ink)] transition-transform hover:-translate-y-1"
+                aria-label="Open resume PDF"
+              >
+                <img src={resumePreview} alt="First page of Rafael’s resume" loading="lazy" className="w-full" />
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[var(--ink)] text-[var(--night-muted)]">
+        <div className={`${wrap} mono flex flex-wrap justify-between gap-3 py-7`}>
+          <span>End of file.</span>
+          <span>© 2026 {person.name}</span>
+        </div>
+      </footer>
+
+      <Lightbox item={viewing} onClose={close} />
     </div>
   );
 }
