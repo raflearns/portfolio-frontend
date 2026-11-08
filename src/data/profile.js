@@ -14,15 +14,22 @@ import strandmatchImg from '../assets/images/projects/strandmatch.png';
 export const person = {
   name: 'Rafael Jr. Canalda',
   fullName: 'Rafael Jr. R. Canalda',
-  goal: 'Penetration tester & cybersecurity engineer in training',
+  initials: 'RJC',
+  location: 'Taguig City, Philippines',
   school: 'University of Makati',
+  degree: 'BS Information Technology, major in Information Network Security',
   github: 'https://github.com/raflearns',
   linkedin: 'https://linkedin.com/in/rafaelcanalda',
-  // Add your real address to show the email button everywhere, e.g. 'rafael@gmail.com'.
-  email: '',
-  // Put your resume PDF in the public/ folder and set this to its path, e.g. '/Rafael-Canalda-Resume.pdf'.
-  resume: '',
+  email: 'rafael.canaldajr@gmail.com',
+  // Lives in public/. Regenerate it from resume/resume.html (see README).
+  resume: '/Rafael-Canalda-Resume.pdf',
 };
+
+export const about = [
+  'I’m an Information Technology student at the University of Makati, majoring in Information Network Security. My goal is to work as a penetration tester and, longer term, a cybersecurity engineer.',
+  'Most of my practice happens in capture-the-flag competitions, where I’ve placed 1st runner-up in INFOTECH ’26 and finished 16th in the Packet Capture CTF. I back that up with Cisco Networking Academy training in networking and network defense.',
+  'Before IT, I studied data analytics in senior high, and I still repair phones and electronics on the side. Both taught me the habit every tester needs: take a system apart until you understand exactly how it fails.',
+];
 
 export const competitions = [
   {
@@ -30,30 +37,28 @@ export const competitions = [
     placement: '1st runner-up',
     event: 'INFOTECH ’26 Cybersecurity',
     host: 'College of Computing and Information Sciences, University of Makati',
-    year: '2026',
+    date: '2026',
     team: 'Sudo RFAM',
-    summary:
-      'Took second place overall in the cybersecurity competition of the university’s annual IT week.',
+    summary: 'Second place overall in the cybersecurity competition of UMak’s annual IT week.',
     stats: [],
-    images: [{ src: infotechImg, alt: 'INFOTECH ’26 Cybersecurity poster announcing team Sudo RFAM as 1st runner-up' }],
+    images: [{ src: infotechImg, alt: 'INFOTECH ’26 Cybersecurity poster announcing the 1st runner-up team' }],
   },
   {
     id: 'packet-capture',
     placement: 'Rank 16',
     event: 'Packet Capture: Beneath the Network CTF',
     host: 'Packet Capture × CyberPH',
-    year: 'Oct 2026',
+    date: 'October 2026',
     team: 'Sudo RFAM v1',
-    summary:
-      'Online, jeopardy-style networking and cybersecurity CTF. Awarded during the online ceremony on October 26, 2026.',
+    summary: 'Online networking and cybersecurity CTF hosted by Packet Capture and CyberPH.',
     stats: [
-      { value: '2,229', label: 'final score' },
-      { value: '24', label: 'flags solved' },
-      { value: '5', label: 'team members' },
+      { value: '2,229', label: 'points' },
+      { value: '24', label: 'flags captured' },
+      { value: '5', label: 'person team' },
     ],
     images: [
-      { src: packetRankImg, alt: 'Packet Capture results card: team Sudo RFAM v1, rank 16, 2229 points, 24 flags' },
-      { src: packetCertImg, alt: 'Certificate of participation in Packet Capture: Beneath the Network CTF' },
+      { src: packetRankImg, alt: 'Packet Capture results card: rank 16, 2,229 points, 24 flags solved' },
+      { src: packetCertImg, alt: 'Certificate of participation, Packet Capture: Beneath the Network CTF' },
     ],
   },
 ];
@@ -63,55 +68,53 @@ export const certifications = [
     id: 'network-defense',
     title: 'Network Defense',
     issuer: 'Cisco Networking Academy',
-    issued: 'Sep 27, 2026',
+    issued: 'Sep 2026',
     image: networkDefenseImg,
     covered: [
       'Documenting a network’s security posture',
       'Hardening network devices and Linux and Windows endpoints',
-      'Identity lifecycle management',
       'Configuring a simulated network firewall',
-      'Cloud security recommendations',
-      'Data protection for transport and storage, and how PKI secures data',
-      'Building virtual computing environments',
+      'Identity lifecycle management',
+      'Data protection in transit and at rest, and PKI',
+      'Cloud security and virtualization',
     ],
   },
   {
     id: 'networking-basics',
     title: 'Networking Basics',
     issuer: 'Cisco Networking Academy',
-    issued: 'Sep 27, 2026',
+    issued: 'Sep 2026',
     image: networkingBasicsImg,
     covered: [
       'Network types, components, standards and protocols',
-      'How Ethernet communication works',
-      'IPv4 and IPv6 addressing',
+      'Ethernet, IPv4 and IPv6 addressing',
       'How routers connect networks',
       'Testing and troubleshooting connectivity',
-      'Securing an integrated wireless router and client',
+      'Securing a wireless router and client',
     ],
   },
   {
     id: 'intro-cybersecurity',
     title: 'Introduction to Cybersecurity',
     issuer: 'Cisco Networking Academy',
-    issued: 'Aug 31, 2026',
+    issued: 'Aug 2026',
     image: introCyberImg,
     covered: [
       'Common threats, attacks and vulnerabilities',
       'Personal and organizational defenses',
-      'Career paths in cybersecurity',
+      'Cybersecurity career paths',
     ],
   },
   {
     id: 'packet-tracer',
     title: 'Introduction to Packet Tracer',
     issuer: 'Cisco Networking Academy',
-    issued: 'Aug 31, 2026',
+    issued: 'Aug 2026',
     image: packetTracerImg,
     covered: [
-      'Building simple networks in Cisco Packet Tracer',
-      'Using network controllers',
-      'Simulating IoT devices in a smart home network',
+      'Building networks in Cisco Packet Tracer',
+      'Network controllers',
+      'Simulated IoT and smart home networks',
     ],
   },
 ];
@@ -120,53 +123,37 @@ export const events = [
   {
     id: 'cyberconvergence',
     title: 'CyberConvergence 2026',
-    detail:
-      'Building the Next Generation of Cyber Defenders summit, held by UMak CCIS with the Philippine Institute of Cybersecurity Professionals.',
-    date: 'Oct 20, 2026',
+    detail: 'Next-generation cyber defenders summit by UMak CCIS and the Philippine Institute of Cybersecurity Professionals.',
+    date: 'Oct 2026',
     image: cyberConvergenceImg,
-    imageAlt: 'Certificate of participation for CyberConvergence 2026',
+    imageAlt: 'Certificate of participation, CyberConvergence 2026',
   },
   {
     id: 'packet-capture-participation',
     title: 'Packet Capture: Beneath the Network',
-    detail: 'Certificate of participation for the Packet Capture × CyberPH CTF.',
-    date: 'Oct 26, 2026',
+    detail: 'Participation certificate, presented at the online awarding ceremony on October 26, 2026.',
+    date: 'Oct 2026',
     image: packetCertImg,
-    imageAlt: 'Certificate of participation in Packet Capture: Beneath the Network CTF',
+    imageAlt: 'Certificate of participation, Packet Capture: Beneath the Network CTF',
   },
 ];
 
+// Every skill points to where it was proven. "verified" = backed by a certificate,
+// "applied" = used in a competition, project or job.
 export const skills = [
-  {
-    group: 'Network security',
-    items: [
-      'Firewall configuration',
-      'Endpoint hardening (Linux, Windows)',
-      'PKI and data protection',
-      'Identity lifecycle management',
-      'Cloud security basics',
-      'Virtualization',
-    ],
-  },
-  {
-    group: 'Networking',
-    items: [
-      'IPv4 and IPv6 addressing',
-      'Ethernet and routing fundamentals',
-      'Connectivity troubleshooting',
-      'Wireless security setup',
-      'Cisco Packet Tracer',
-      'BPO-style LAN topologies',
-    ],
-  },
-  {
-    group: 'Programming',
-    items: ['Java (OOP)', 'Python', 'PHP', 'MySQL', 'HTML', 'CSS'],
-  },
-  {
-    group: 'Analysis and tools',
-    items: ['Data analytics', 'Excel', 'Microsoft 365', 'Google Workspace', 'Hardware troubleshooting'],
-  },
+  { skill: 'Threats, attacks and vulnerabilities', state: 'verified', source: 'Cisco Intro to Cybersecurity' },
+  { skill: 'Firewall configuration', state: 'verified', source: 'Cisco Network Defense' },
+  { skill: 'Endpoint hardening (Linux, Windows)', state: 'verified', source: 'Cisco Network Defense' },
+  { skill: 'PKI and data protection', state: 'verified', source: 'Cisco Network Defense' },
+  { skill: 'Identity lifecycle management', state: 'verified', source: 'Cisco Network Defense' },
+  { skill: 'IPv4 / IPv6 addressing and routing', state: 'verified', source: 'Cisco Networking Basics' },
+  { skill: 'Connectivity troubleshooting', state: 'verified', source: 'Cisco Networking Basics' },
+  { skill: 'Network simulation (Packet Tracer)', state: 'verified', source: 'Cisco Intro to Packet Tracer' },
+  { skill: 'CTF problem solving under time pressure', state: 'applied', source: 'INFOTECH ’26, Packet Capture CTF' },
+  { skill: 'Java (OOP) and MySQL', state: 'applied', source: 'Laundrify POS' },
+  { skill: 'Python and data analysis', state: 'applied', source: 'Predictive Modeling, STEM-DA strand' },
+  { skill: 'JavaScript, HTML, CSS', state: 'applied', source: 'BSIT web development coursework' },
+  { skill: 'Hardware diagnostics and repair', state: 'applied', source: 'Electronics technician work' },
 ];
 
 export const projects = [
@@ -174,10 +161,10 @@ export const projects = [
     id: 'laundrify',
     title: 'Laundrify POS',
     description:
-      'A standalone point-of-sale system for local laundry shops, built for reliable transaction processing and local data management.',
-    tech: ['Java', 'OOP', 'MySQL'],
+      'Standalone point-of-sale system for local laundry shops, with cashier logins, a queue manager and cash or QR payments.',
+    tech: ['Java', 'MySQL'],
     image: laundrifyImg,
-    imageAlt: 'Laundrify POS interface',
+    imageAlt: 'Laundrify POS cashier screen',
   },
   {
     id: 'predictive-modeling',
@@ -188,11 +175,4 @@ export const projects = [
     image: strandmatchImg,
     imageAlt: 'StrandMatch landing page',
   },
-];
-
-export const askMeAbout = [
-  'What competing in CTFs has taught me',
-  'Applying network defense coursework to real topologies',
-  'My path from network administration toward penetration testing',
-  'Using data analytics to spot patterns in network traffic',
 ];

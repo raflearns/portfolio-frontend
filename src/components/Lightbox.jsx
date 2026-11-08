@@ -24,7 +24,7 @@ export default function Lightbox({ item, onClose }) {
     <AnimatePresence>
       {item && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(6,11,20,0.88)] p-4 sm:p-10"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(18,20,24,0.9)] p-4 sm:p-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -44,13 +44,13 @@ export default function Lightbox({ item, onClose }) {
             <img
               src={item.src}
               alt={item.alt}
-              className="max-h-[80vh] w-auto rounded-[10px] shadow-2xl"
+              className="max-h-[80vh] w-auto shadow-2xl"
             />
-            <figcaption className="mt-3 text-sm text-[var(--fog)]">{item.alt}</figcaption>
+            <figcaption className="mt-3 text-sm text-[var(--night-muted)]">{item.alt}</figcaption>
             <button
               ref={closeRef}
               onClick={onClose}
-              className="absolute -top-3 -right-3 grid h-10 w-10 place-items-center rounded-full bg-[var(--paper)] text-[var(--ink)] hover:bg-white"
+              className="absolute -top-3 -right-3 grid h-10 w-10 place-items-center bg-[var(--red)] text-white hover:bg-[var(--red-deep)]"
               aria-label="Close"
             >
               <X size={20} />

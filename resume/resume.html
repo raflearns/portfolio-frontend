@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Rafael Jr. R. Canalda — Resume</title>
+<style>
+  @font-face {
+    font-family: 'Bricolage';
+    src: url('../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-standard-normal.woff2') format('woff2-variations');
+    font-weight: 200 800;
+    font-stretch: 75% 100%;
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font-family: 'Bricolage', 'Helvetica Neue', Arial, sans-serif;
+    font-variation-settings: 'opsz' 12;
+    color: #24272c;
+    font-size: 9.3pt;
+    line-height: 1.38;
+  }
+  .page { width: 210mm; min-height: 297mm; padding: 13mm 15mm 10mm; }
+  header { border-bottom: 2.5pt solid #d3261c; padding-bottom: 9pt; margin-bottom: 4pt; }
+  h1 {
+    font-size: 25pt; line-height: 1; margin: 0; color: #15171b;
+    font-weight: 800; font-variation-settings: 'opsz' 96, 'wdth' 88; letter-spacing: -0.01em;
+  }
+  .role { font-size: 11.5pt; font-weight: 600; color: #d3261c; margin: 5pt 0 6pt; }
+  .contact { display: flex; flex-wrap: wrap; gap: 3pt 14pt; font-size: 9pt; color: #4a5059; }
+  .contact a { color: inherit; text-decoration: none; }
+  h2 {
+    font-size: 10.5pt; margin: 10pt 0 4pt; color: #15171b; font-weight: 750;
+    font-variation-settings: 'opsz' 24; display: flex; align-items: center; gap: 8pt;
+  }
+  h2::after { content: ''; flex: 1; height: 0.75pt; background: #c9ced6; }
+  p { margin: 0; }
+  .item { margin-bottom: 5pt; break-inside: avoid; }
+  .row { display: flex; justify-content: space-between; gap: 12pt; align-items: baseline; }
+  .title { font-weight: 650; color: #15171b; }
+  .when { font-size: 8.8pt; color: #4a5059; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .sub { color: #4a5059; }
+  ul { margin: 2pt 0 0; padding-left: 11pt; }
+  li { margin: 1pt 0; }
+  li::marker { color: #d3261c; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2pt 18pt; }
+  .skills p { margin: 2pt 0; }
+  .skills b { font-weight: 650; color: #15171b; }
+  .muted { color: #4a5059; font-size: 9pt; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Rafael Jr. R. Canalda</h1>
+    <p class="role">Aspiring Penetration Tester and Cybersecurity Engineer</p>
+    <div class="contact">
+      <span>Taguig City, Philippines</span>
+      <a href="mailto:rafael.canaldajr@gmail.com">rafael.canaldajr@gmail.com</a>
+      <a href="https://linkedin.com/in/rafaelcanalda">linkedin.com/in/rafaelcanalda</a>
+      <a href="https://github.com/raflearns">github.com/raflearns</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p>
+      Information Technology student majoring in Information Network Security, building toward a career in
+      penetration testing. 1st runner-up in the INFOTECH ’26 cybersecurity competition and holder of four Cisco
+      Networking Academy credentials covering networking and network defense. Brings a hands-on troubleshooting
+      background from hardware repair and a data analytics foundation. Looking for a cybersecurity or IT
+      internship where I can contribute to security assessments while continuing to grow.
+    </p>
+  </section>
+
+  <section>
+    <h2>Competitions</h2>
+    <div class="item">
+      <div class="row"><span class="title">1st Runner-up, INFOTECH ’26 Cybersecurity Competition</span><span class="when">2026</span></div>
+      <p class="sub">College of Computing and Information Sciences, University of Makati. Team Sudo RFAM.</p>
+    </div>
+    <div class="item">
+      <div class="row"><span class="title">Rank 16, Packet Capture: Beneath the Network CTF</span><span class="when">Oct 2026</span></div>
+      <p class="sub">Packet Capture × CyberPH, online. Scored 2,229 points and captured 24 flags with a five-person team.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Certifications, Cisco Networking Academy</h2>
+    <div class="grid2">
+      <div class="row"><span><span class="title">Network Defense</span></span><span class="when">Sep 2026</span></div>
+      <div class="row"><span><span class="title">Networking Basics</span></span><span class="when">Sep 2026</span></div>
+      <div class="row"><span><span class="title">Introduction to Cybersecurity</span></span><span class="when">Aug 2026</span></div>
+      <div class="row"><span><span class="title">Introduction to Packet Tracer</span></span><span class="when">Aug 2026</span></div>
+    </div>
+    <p class="muted" style="margin-top:5pt">Training: CyberConvergence 2026 Cyber Defenders Summit, UMak CCIS and PICSPro (Oct 2026).</p>
+  </section>
+
+  <section>
+    <h2>Technical skills</h2>
+    <div class="skills">
+      <p><b>Security:</b> threat and vulnerability fundamentals, firewall configuration, endpoint hardening (Linux, Windows), PKI and data protection, identity lifecycle management</p>
+      <p><b>Networking:</b> IPv4/IPv6 addressing, routing and Ethernet fundamentals, connectivity troubleshooting, wireless security, Cisco Packet Tracer</p>
+      <p><b>Programming:</b> Java (OOP), Python, JavaScript, HTML, CSS, MySQL</p>
+      <p><b>Other:</b> PC and electronics hardware diagnostics, data analysis, Microsoft Excel</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <div class="item">
+      <div class="row"><span class="title">Laundrify POS</span><span class="when">Java, MySQL</span></div>
+      <p>Standalone point-of-sale system for laundry shops with cashier logins, a queue manager and cash or QR payments, built around reliable local transaction records.</p>
+    </div>
+    <div class="item">
+      <div class="row"><span class="title">Predictive Modeling</span><span class="when">Python, Excel, MySQL</span></div>
+      <p>Statistical models forecasting trends from discrete data sets, using rule-based logic instead of interpolation for more accurate results.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="item">
+      <div class="row"><span class="title">BS Information Technology, major in Information Network Security</span><span class="when">2025 – Present</span></div>
+      <p class="sub">University of Makati. Coursework: Network Security, Database Management, Object-Oriented Programming.</p>
+    </div>
+    <div class="item">
+      <div class="row"><span class="title">Senior High School, STEM – Data Analytics</span><span class="when">2023 – 2025</span></div>
+      <p class="sub">University of Makati. Coursework: Data Analysis, Probability and Statistics, Programming.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <div class="item">
+      <div class="row"><span class="title">Independent Electronics Technician</span><span class="when">2023 – Present</span></div>
+      <p>Diagnose and repair mobile devices, audio equipment and peripherals, tracing faults component by component.</p>
+    </div>
+    <p class="muted">Also: crew member, McDonald’s (2023 – 2025); freelance graphic designer (2024 – 2025).</p>
+  </section>
+
+  <section>
+    <h2>Languages</h2>
+    <p>English, Filipino</p>
+  </section>
+</div>
+</body>
+</html>

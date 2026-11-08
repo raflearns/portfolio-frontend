@@ -2,48 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Design: a declassified case file. Cool paper, ink, and one red-team red.
+  Sections follow the phases of a penetration test, ending in the report (the resume).
+*/
 :root {
-  --ink: #0d1726;
-  --raised: #132137;
-  --line: #20324b;
-  --line-strong: #34506f;
-  --paper: #e6ecf3;
-  --fog: #93a4bb;
-  --steel: #7db8e0;
-  --amber: #f0b13f;
+  --paper: #e8ebef;
+  --sheet: #f6f7f9;
+  --ink: #121418;
+  --graphite: #474d57;
+  --rule: #c5cbd4;
+  --red: #d3261c;
+  --red-deep: #a81c14;
+  --night-text: #e8ebef;
+  --night-muted: #9aa3b0;
+  --night-rule: #2a2f37;
 
-  --font-display: 'Archivo Variable', system-ui, sans-serif;
-  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-sans: 'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
-  color-scheme: dark;
-  background-color: var(--ink);
-  color: var(--paper);
+  color-scheme: light;
 }
 
 html {
   scroll-behavior: smooth;
+  background: var(--paper);
 }
 
 body {
   margin: 0;
-  background: var(--ink);
-  color: var(--fog);
-  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--graphite);
+  font-family: var(--font-sans);
+  font-variation-settings: 'opsz' 14;
   font-size: 1.0625rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: rgba(240, 177, 63, 0.35);
-  color: var(--paper);
+  background: var(--red);
+  color: #fff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--amber);
+  outline: 2px solid var(--red);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -52,60 +56,98 @@ body {
   }
 }
 
-/* Display type: Archivo at its widest setting reads like equipment labelling */
-.display {
-  font-family: var(--font-display);
-  font-variation-settings: 'wdth' 125;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  color: var(--paper);
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-variation-settings: 'wdth' 118;
-  font-weight: 750;
-  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
-  line-height: 1.1;
-  color: var(--paper);
-}
-
-.link {
-  color: var(--steel);
-  text-decoration: underline;
-  text-decoration-color: rgba(125, 184, 224, 0.4);
-  text-underline-offset: 3px;
-  transition: text-decoration-color 150ms ease, color 150ms ease;
-}
-.link:hover {
-  color: var(--paper);
-  text-decoration-color: var(--paper);
-}
-
-/* Topology diagram text */
-.topo-label {
-  font-family: var(--font-display);
-  font-variation-settings: 'wdth' 100;
-  font-weight: 700;
-  font-size: 16px;
-  fill: var(--paper);
-}
-.topo-detail {
-  font-family: var(--font-body);
-  font-size: 13px;
-  fill: var(--fog);
-}
-.topo-port {
+.mono {
   font-family: var(--font-mono);
-  font-size: 11px;
-  fill: var(--fog);
+  font-size: 0.8125rem;
+  letter-spacing: 0;
 }
-.topo-node {
-  cursor: pointer;
-  outline: none;
+
+/* The name: condensed, heavy, set big enough to act as the hero image */
+.name {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-variation-settings: 'opsz' 96, 'wdth' 75;
+  line-height: 0.84;
+  letter-spacing: -0.02em;
+  color: var(--ink);
 }
-.topo-node:hover rect,
-.topo-node:focus-visible rect {
-  fill: #1a2c47;
-  stroke: var(--amber);
+
+.title {
+  font-family: var(--font-sans);
+  font-weight: 750;
+  font-variation-settings: 'opsz' 72, 'wdth' 82;
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.night .title {
+  color: var(--night-text);
+}
+
+.heading {
+  font-weight: 650;
+  font-variation-settings: 'opsz' 24;
+  color: var(--ink);
+}
+
+.night .heading {
+  color: var(--night-text);
+}
+
+/* Redaction bars over the name; they wipe away once on load */
+.redact-line {
+  position: relative;
+  display: block;
+  width: fit-content;
+}
+.redact-bar {
+  position: absolute;
+  inset: 0.08em -0.04em 0.02em;
+  background: var(--ink);
+  transform-origin: right center;
+}
+
+/* Photo frame with crop marks, like a photo clipped to a file */
+.crop {
+  position: relative;
+}
+.crop::before,
+.crop::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--red);
+  border-style: solid;
+  pointer-events: none;
+}
+.crop::before {
+  top: -8px;
+  left: -8px;
+  border-width: 2px 0 0 2px;
+}
+.crop::after {
+  bottom: -8px;
+  right: -8px;
+  border-width: 0 2px 2px 0;
+}
+
+.redacted-text {
+  background: var(--ink);
+  color: transparent;
+  user-select: none;
+  border-radius: 1px;
+}
+
+.text-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
+}
+.text-link:hover {
+  color: var(--red);
 }
