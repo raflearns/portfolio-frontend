@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Mail, Image as ImageIcon, ChevronDown } from 'lucide-react';
+import { Mail, Image as ImageIcon, ChevronDown, FileText } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './components/BrandIcons';
 import Topology from './components/Topology';
 import Lightbox from './components/Lightbox';
@@ -99,12 +99,16 @@ export default function App() {
             </p>
             <p className="mt-4 max-w-[52ch]">
               I study Information Technology at the University of Makati, specializing in network system
-              administration. I compete in CTFs with team {person.team} and back it up with Cisco networking and
-              network defense coursework.
+              administration. I sharpen my skills in capture-the-flag competitions and back them up with Cisco
+              networking and network defense coursework.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="#record">See my competition record</Button>
-              <Button href="#contact" variant="outline">
+              {person.resume && (
+                <Button href={person.resume} target="_blank" rel="noreferrer">
+                  <FileText size={18} aria-hidden="true" /> View my resume
+                </Button>
+              )}
+              <Button href="#contact" variant={person.resume ? 'outline' : 'solid'}>
                 Get in touch
               </Button>
             </div>
@@ -120,7 +124,7 @@ export default function App() {
           <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
             <div className="max-w-2xl">
               <h2 className="section-title">Competition record</h2>
-              <p className="mt-3">Capture-the-flag events I’ve played with my team, Sudo RFAM.</p>
+              <p className="mt-3">Capture-the-flag competitions I’ve placed in.</p>
             </div>
 
             <div className="mt-12 divide-y divide-[var(--line)] border-y border-[var(--line)]">
@@ -291,12 +295,17 @@ export default function App() {
                 I’m open to conversations about internships, CTF teams and getting started in offensive security.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
+                {person.resume && (
+                  <Button href={person.resume} target="_blank" rel="noreferrer">
+                    <FileText size={18} aria-hidden="true" /> Resume
+                  </Button>
+                )}
                 {email && (
-                  <Button href={email}>
+                  <Button href={email} variant={person.resume ? 'outline' : 'solid'}>
                     <Mail size={18} aria-hidden="true" /> Email me
                   </Button>
                 )}
-                <Button href={person.linkedin} variant={email ? 'outline' : 'solid'} target="_blank" rel="noreferrer">
+                <Button href={person.linkedin} variant={email || person.resume ? 'outline' : 'solid'} target="_blank" rel="noreferrer">
                   <LinkedinIcon size={18} aria-hidden="true" /> LinkedIn
                 </Button>
                 <Button href={person.github} variant="outline" target="_blank" rel="noreferrer">

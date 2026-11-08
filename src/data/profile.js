@@ -20,7 +20,8 @@ export const person = {
   linkedin: 'https://linkedin.com/in/rafaelcanalda',
   // Add your real address to show the email button everywhere, e.g. 'rafael@gmail.com'.
   email: '',
-  team: 'Sudo RFAM',
+  // Put your resume PDF in the public/ folder and set this to its path, e.g. '/Rafael-Canalda-Resume.pdf'.
+  resume: '',
 };
 
 export const competitions = [
@@ -190,7 +191,7 @@ export const projects = [
 ];
 
 export const askMeAbout = [
-  'What competing in CTFs with team Sudo RFAM has taught me',
+  'What competing in CTFs has taught me',
   'Applying network defense coursework to real topologies',
   'My path from network administration toward penetration testing',
   'Using data analytics to spot patterns in network traffic',
