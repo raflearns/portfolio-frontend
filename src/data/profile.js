@@ -152,7 +152,7 @@ export const skills = [
   { skill: 'Network simulation (Packet Tracer)', state: 'verified', source: 'Cisco Intro to Packet Tracer' },
   { skill: 'CTF problem solving under time pressure', state: 'applied', source: 'INFOTECH ’26, Packet Capture CTF' },
   { skill: 'Java (OOP) and MySQL', state: 'applied', source: 'Laundrify POS' },
-  { skill: 'Python and data analysis', state: 'applied', source: 'Predictive Modeling, STEM-DA strand' },
+  { skill: 'Python and data analysis', state: 'applied', source: 'StrandMatch, STEM-DA strand' },
   { skill: 'Offline-first web apps (React, TypeScript)', state: 'applied', source: 'PrepR' },
   { skill: 'JavaScript, HTML, CSS', state: 'applied', source: 'PrepR, BSIT coursework' },
   { skill: 'Hardware diagnostics and repair', state: 'applied', source: 'Electronics technician work' },
@@ -181,12 +181,12 @@ export const projects = [
     imageAlt: 'Laundrify POS cashier screen',
   },
   {
-    id: 'predictive-modeling',
-    title: 'Predictive Modeling',
+    id: 'strandmatch',
+    title: 'StrandMatch',
     description:
-      'Statistical models that forecast trends from discrete data sets, using rule-based logic instead of interpolation for more accurate results.',
+      'A predictive model for senior high students moving into college. It forecasts course feasibility and future enrollment so students can see where their strand leads and map out a career path, using rule-based logic for discrete data instead of interpolation.',
     tech: ['Python', 'Excel', 'MySQL'],
     image: strandmatchImg,
-    imageAlt: 'StrandMatch landing page',
+    imageAlt: 'StrandMatch logo',
   },
 ];
