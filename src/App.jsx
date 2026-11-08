@@ -432,7 +432,7 @@ export default function App() {
                 </li>
                 <li>
                   <a href={person.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:underline underline-offset-4">
-                    <LinkedinIcon size={17} aria-hidden="true" /> linkedin.com/in/rafaelcanalda
+                    <LinkedinIcon size={17} aria-hidden="true" /> linkedin.com/in/raf-jrrc
                   </a>
                 </li>
                 <li>

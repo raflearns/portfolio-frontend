@@ -20,7 +20,7 @@ export const person = {
   school: 'University of Makati',
   degree: 'BS Information Technology, major in Information Network Security',
   github: 'https://github.com/raflearns',
-  linkedin: 'https://linkedin.com/in/rafaelcanalda',
+  linkedin: 'https://www.linkedin.com/in/raf-jrrc/',
   email: 'rafael.canaldajr@gmail.com',
   // Lives in public/. Regenerate it from resume/resume.html (see README).
   resume: '/Rafael-Canalda-Resume.pdf',
