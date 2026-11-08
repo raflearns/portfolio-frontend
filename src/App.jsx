@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Mail, ChevronDown, FileDown, Maximize2 } from 'lucide-react';
+import { Mail, ChevronDown, FileDown, Maximize2, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './components/BrandIcons';
 import Lightbox from './components/Lightbox';
 import profileImg from './assets/images/profiles/raf_profile.webp';
@@ -379,17 +379,26 @@ export default function App() {
           n="05"
           name="Persistence"
           title="Things I’ve built"
-          intro="Software I designed and shipped, from data models to a full point-of-sale system."
+          intro="Software I designed and shipped, from an offline disaster app to a point-of-sale system."
         >
-          <div className="mt-10 grid gap-10 md:grid-cols-2">
+          <div className="mt-10 grid gap-x-10 gap-y-14 md:grid-cols-2">
             {projects.map((p) => (
-              <article key={p.id}>
+              <article key={p.id} className={p.featured ? 'md:col-span-2' : ''}>
                 <div className="aspect-video overflow-hidden border-2 border-[var(--ink)] bg-[var(--sheet)]">
                   <img src={p.image} alt={p.imageAlt} loading="lazy" className="h-full w-full object-cover" />
                 </div>
-                <h3 className="heading mt-5 text-2xl">{p.title}</h3>
-                <p className="mt-2 max-w-[52ch]">{p.description}</p>
-                <p className="mono mt-3 text-[var(--red)]">{p.tech.join(' / ')}</p>
+                <div className={p.featured ? 'mt-6 grid gap-x-10 gap-y-3 lg:grid-cols-[1fr_auto] lg:items-start' : 'mt-5'}>
+                  <div>
+                    <h3 className={`heading ${p.featured ? 'text-3xl' : 'text-2xl'}`}>{p.title}</h3>
+                    <p className={`mt-2 ${p.featured ? 'max-w-[64ch] text-lg' : 'max-w-[52ch]'}`}>{p.description}</p>
+                    <p className="mono mt-3 text-[var(--red)]">{p.tech.join(' / ')}</p>
+                  </div>
+                  {p.link && (
+                    <Btn href={p.link} target="_blank" rel="noreferrer" tone="line">
+                      <ExternalLink size={18} aria-hidden="true" /> Open {p.title}
+                    </Btn>
+                  )}
+                </div>
               </article>
             ))}
           </div>

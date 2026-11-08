@@ -8,6 +8,7 @@ import packetTracerImg from '../assets/images/certs/cisco-packet-tracer.webp';
 import networkingBasicsImg from '../assets/images/certs/cisco-networking-basics.webp';
 import networkDefenseImg from '../assets/images/certs/cisco-network-defense.webp';
 import cyberConvergenceImg from '../assets/images/certs/cyberconvergence-2026.webp';
+import preprImg from '../assets/images/projects/prepr.webp';
 import laundrifyImg from '../assets/images/projects/laundrify.png';
 import strandmatchImg from '../assets/images/projects/strandmatch.png';
 
@@ -152,11 +153,24 @@ export const skills = [
   { skill: 'CTF problem solving under time pressure', state: 'applied', source: 'INFOTECH ’26, Packet Capture CTF' },
   { skill: 'Java (OOP) and MySQL', state: 'applied', source: 'Laundrify POS' },
   { skill: 'Python and data analysis', state: 'applied', source: 'Predictive Modeling, STEM-DA strand' },
-  { skill: 'JavaScript, HTML, CSS', state: 'applied', source: 'BSIT web development coursework' },
+  { skill: 'Offline-first web apps (React, TypeScript)', state: 'applied', source: 'PrepR' },
+  { skill: 'JavaScript, HTML, CSS', state: 'applied', source: 'PrepR, BSIT coursework' },
   { skill: 'Hardware diagnostics and repair', state: 'applied', source: 'Electronics technician work' },
 ];
 
 export const projects = [
+  {
+    id: 'prepr',
+    title: 'PrepR',
+    featured: true,
+    description:
+      'A free disaster preparedness app for Philippine households that keeps working with no signal. Open it once, add it to the home screen, and every tool runs offline: go-bag checklist, hazard guides for eight calamities (including cyber-attack outages), a one-text status SMS, rescue siren and SOS light, a medical QR card and emergency hotlines.',
+    tech: ['React', 'TypeScript', 'PWA', 'Tailwind CSS'],
+    image: preprImg,
+    imageAlt: 'PrepR on a phone: hazard picker, field comms and rescue tools screens',
+    link: 'https://prepr-xi.vercel.app',
+    linkLabel: 'prepr-xi.vercel.app',
+  },
   {
     id: 'laundrify',
     title: 'Laundrify POS',
