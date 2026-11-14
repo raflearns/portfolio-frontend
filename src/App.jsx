@@ -131,7 +131,7 @@ export default function App() {
             {/* Subject card */}
             <div className="lg:col-span-5 lg:pb-3">
               <div className="flex gap-6 border-2 border-[var(--ink)] bg-[var(--sheet)] p-5 sm:gap-7 sm:p-6">
-                <div className="crop shrink-0">
+                <div className="crop shrink-0 self-start">
                   <img
                     src={profileImg}
                     alt={`Portrait of ${person.name}`}
@@ -143,6 +143,7 @@ export default function App() {
                     ['Subject', person.fullName],
                     ['Based in', person.location],
                     ['Best result', '1st runner-up, INFOTECH ’26'],
+                    ['Latest', 'Cisco Ethical Hacker'],
                     ['Credentials', `${certifications.length} Cisco NetAcad`],
                   ].map(([k, v]) => (
                     <div key={k}>
@@ -171,8 +172,8 @@ export default function App() {
               </p>
               <p className="mt-5 max-w-[54ch] text-lg">
                 IT student at the University of Makati, majoring in Information Network Security. I learn by breaking
-                things in capture-the-flag competitions and back it up with Cisco networking and network defense
-                training.
+                things in capture-the-flag competitions and back it up with Cisco training, including the Ethical
+                Hacker course.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Btn href={person.resume} target="_blank" rel="noreferrer">
@@ -318,38 +319,77 @@ export default function App() {
           n="04"
           name="Privilege escalation"
           title="Credentials and training"
-          intro="Cisco Networking Academy courses, each with a QR code on the certificate that anyone can scan to verify."
+          intro="Cisco Networking Academy courses, each with a Credly badge anyone can check."
         >
           <div className="mt-10 grid gap-5 sm:grid-cols-2">
-            {certifications.map((cert) => (
-              <div key={cert.id} className="flex flex-col border-t-4 border-[var(--red)] bg-[var(--sheet)] p-6">
-                <p className="mono text-[var(--graphite)]">
-                  {cert.issuer}, {cert.issued}
-                </p>
-                <h3 className="heading mt-2 text-xl">{cert.title}</h3>
-                <details className="group mt-4 [&_summary::-webkit-details-marker]:hidden">
-                  <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-[0.95rem] font-medium text-[var(--ink)] hover:text-[var(--red)]">
-                    What it covered
-                    <ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" />
-                  </summary>
-                  <ul className="mt-3 space-y-1.5 text-[0.95rem]">
-                    {cert.covered.map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span className="mt-[0.65em] h-[3px] w-3 shrink-0 bg-[var(--red)]" aria-hidden="true" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-                <button
-                  type="button"
-                  onClick={() => setViewing({ src: cert.image, alt: `${cert.title} certificate, ${cert.issuer}` })}
-                  className="mt-auto pt-5 text-left text-[0.95rem] font-semibold text-[var(--red)] hover:text-[var(--red-deep)]"
-                >
-                  View certificate
-                </button>
-              </div>
-            ))}
+            {certifications.map((cert) => {
+              const actions = (
+                <div className="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-5 text-[0.95rem] font-semibold">
+                  <button
+                    type="button"
+                    onClick={() => setViewing({ src: cert.image, alt: `${cert.title} certificate, ${cert.issuer}` })}
+                    className={cert.featured ? 'text-[#ff6b5e] hover:text-white' : 'text-[var(--red)] hover:text-[var(--red-deep)]'}
+                  >
+                    View certificate
+                  </button>
+                  {cert.verify && (
+                    <a
+                      href={cert.verify}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`inline-flex items-center gap-1.5 ${cert.featured ? 'text-[var(--night-text)] hover:text-white' : 'text-[var(--ink)] hover:text-[var(--red)]'}`}
+                    >
+                      Verify on Credly <ExternalLink size={15} aria-hidden="true" />
+                    </a>
+                  )}
+                </div>
+              );
+
+              if (cert.featured) {
+                return (
+                  <div key={cert.id} className="night flex flex-col border-t-4 border-[var(--red)] bg-[var(--ink)] p-6 text-[var(--night-muted)] sm:col-span-2 sm:p-8">
+                    <p className="mono">
+                      {cert.issuer}, {cert.issued}
+                    </p>
+                    <h3 className="heading mt-2 text-3xl">{cert.title}</h3>
+                    <p className="mt-2 max-w-[56ch]">The full penetration testing process, from planning and recon to exploitation and the final report.</p>
+                    <ul className="mt-6 grid gap-x-10 gap-y-2 text-[0.95rem] md:grid-cols-2">
+                      {cert.covered.map((item) => (
+                        <li key={item} className="flex gap-3 text-[var(--night-text)]">
+                          <span className="mt-[0.65em] h-[3px] w-3 shrink-0 bg-[var(--red)]" aria-hidden="true" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    {actions}
+                  </div>
+                );
+              }
+
+              return (
+                <div key={cert.id} className="flex flex-col border-t-4 border-[var(--red)] bg-[var(--sheet)] p-6">
+                  <p className="mono text-[var(--graphite)]">
+                    {cert.issuer}, {cert.issued}
+                  </p>
+                  <h3 className="heading mt-2 text-xl">{cert.title}</h3>
+                  <details className="group mt-4 [&_summary::-webkit-details-marker]:hidden">
+                    <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-[0.95rem] font-medium text-[var(--ink)] hover:text-[var(--red)]">
+                      What it covered
+                      <ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" />
+                    </summary>
+                    <ul className="mt-3 space-y-1.5 text-[0.95rem]">
+                      {cert.covered.map((item) => (
+                        <li key={item} className="flex gap-3">
+                          <span className="mt-[0.65em] h-[3px] w-3 shrink-0 bg-[var(--red)]" aria-hidden="true" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                  {actions}
+                </div>
+              );
+            })}
           </div>
 
           <h3 className="heading mt-14 text-xl">Summits and participation</h3>

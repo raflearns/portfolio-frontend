@@ -3,6 +3,7 @@
 import infotechImg from '../assets/images/ctf/infotech26-runner-up.webp';
 import packetRankImg from '../assets/images/ctf/packet-capture-rank16.webp';
 import packetCertImg from '../assets/images/ctf/packet-capture-participation.webp';
+import ethicalHackerImg from '../assets/images/certs/cisco-ethical-hacker.webp';
 import introCyberImg from '../assets/images/certs/cisco-intro-cybersecurity.webp';
 import packetTracerImg from '../assets/images/certs/cisco-packet-tracer.webp';
 import networkingBasicsImg from '../assets/images/certs/cisco-networking-basics.webp';
@@ -28,7 +29,7 @@ export const person = {
 
 export const about = [
   'I’m an Information Technology student at the University of Makati, majoring in Information Network Security. My goal is to work as a penetration tester and, longer term, a cybersecurity engineer.',
-  'Most of my practice happens in capture-the-flag competitions, where I’ve placed 1st runner-up in INFOTECH ’26 and finished 16th in the Packet Capture CTF. I back that up with Cisco Networking Academy training in networking and network defense.',
+  'Most of my practice happens in capture-the-flag competitions, where I’ve placed 1st runner-up in INFOTECH ’26 and finished 16th in the Packet Capture CTF. I back that up with Cisco Networking Academy training, most recently the Ethical Hacker course, which covers the full penetration testing process from reconnaissance to the final report.',
   'Before IT, I studied data analytics in senior high, and I still repair phones and electronics on the side. Both taught me the habit every tester needs: take a system apart until you understand exactly how it fails.',
 ];
 
@@ -66,11 +67,33 @@ export const competitions = [
 
 export const certifications = [
   {
+    id: 'ethical-hacker',
+    featured: true,
+    title: 'Ethical Hacker',
+    issuer: 'Cisco Networking Academy',
+    issued: 'Nov 2026',
+    image: ethicalHackerImg,
+    verify: 'https://www.credly.com/badges/52d8f30f-afae-4e74-a7ea-4e1c06f30418',
+    covered: [
+      'Methodical ethical hacking and penetration testing',
+      'Preparing pre-engagement penetration testing documents',
+      'Information gathering and vulnerability scanning',
+      'How social engineering attacks succeed',
+      'Exploiting wired and wireless network vulnerabilities',
+      'Exploiting application-based vulnerabilities',
+      'Exploiting cloud, mobile and IoT vulnerabilities',
+      'Post-exploitation activities',
+      'Writing a penetration testing report',
+      'Choosing pentesting tools by use case',
+    ],
+  },
+  {
     id: 'network-defense',
     title: 'Network Defense',
     issuer: 'Cisco Networking Academy',
     issued: 'Sep 2026',
     image: networkDefenseImg,
+    verify: 'https://www.credly.com/badges/d07738ad-b3b2-4d45-a142-817490cd6f48',
     covered: [
       'Documenting a network’s security posture',
       'Hardening network devices and Linux and Windows endpoints',
@@ -86,6 +109,7 @@ export const certifications = [
     issuer: 'Cisco Networking Academy',
     issued: 'Sep 2026',
     image: networkingBasicsImg,
+    verify: 'https://www.credly.com/badges/8d123417-e98a-4f36-926a-33ccab2fa49b',
     covered: [
       'Network types, components, standards and protocols',
       'Ethernet, IPv4 and IPv6 addressing',
@@ -100,6 +124,7 @@ export const certifications = [
     issuer: 'Cisco Networking Academy',
     issued: 'Aug 2026',
     image: introCyberImg,
+    verify: 'https://www.credly.com/badges/65f3e82d-689d-466f-bca7-fa9765424b09',
     covered: [
       'Common threats, attacks and vulnerabilities',
       'Personal and organizational defenses',
@@ -112,6 +137,7 @@ export const certifications = [
     issuer: 'Cisco Networking Academy',
     issued: 'Aug 2026',
     image: packetTracerImg,
+    verify: 'https://www.credly.com/badges/db68446a-125b-43aa-836f-4bb1e7d74125',
     covered: [
       'Building networks in Cisco Packet Tracer',
       'Network controllers',
@@ -142,6 +168,10 @@ export const events = [
 // Every skill points to where it was proven. "verified" = backed by a certificate,
 // "applied" = used in a competition, project or job.
 export const skills = [
+  { skill: 'Penetration testing methodology and reporting', state: 'verified', source: 'Cisco Ethical Hacker' },
+  { skill: 'Information gathering and vulnerability scanning', state: 'verified', source: 'Cisco Ethical Hacker' },
+  { skill: 'Network, wireless and application exploitation', state: 'verified', source: 'Cisco Ethical Hacker' },
+  { skill: 'Social engineering and post-exploitation', state: 'verified', source: 'Cisco Ethical Hacker' },
   { skill: 'Threats, attacks and vulnerabilities', state: 'verified', source: 'Cisco Intro to Cybersecurity' },
   { skill: 'Firewall configuration', state: 'verified', source: 'Cisco Network Defense' },
   { skill: 'Endpoint hardening (Linux, Windows)', state: 'verified', source: 'Cisco Network Defense' },
